@@ -1,0 +1,1261 @@
+[2025-11-14 18:28:31] {role.py:672} WARNING - Fail to run due to Client.__init__() got an unexpected keyword argument 'proxies'
+[2025-11-14 18:29:49] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-14 18:29:49] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-14 18:29:49] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-14 18:29:51] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int Fibon(int param_1) {
+    if ((param_1 == 1) || (param_1 == 2)) {
+        return 1;
+    }
+    return Fibon(param_1 - 1) + Fibon(param_1 - 2);
+} 
+ ====================
+[2025-11-14 18:29:53] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ 
+int Fibon(int param_1) {
+    // Base case: return 1 for the first and second Fibonacci numbers
+    if ((param_1 == 1) || (param_1 == 2)) {
+        return 1;
+    }
+    // Recursive case: sum of the two preceding Fibonacci numbers
+    return Fibon(param_1 - 1) + Fibon(param_1 - 2);
+}
+ 
+ ====================
+[2025-11-14 18:29:54] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"param_1": "n"} 
+ ====================
+[2025-11-22 22:41:13] {role.py:672} WARNING - Fail to run due to Client.__init__() got an unexpected keyword argument 'proxies'
+[2025-11-22 22:41:13] {app.py:106} ERROR - 优化失败: Expecting value: line 1 column 1 (char 0)
+[2025-11-22 22:41:23] {role.py:672} WARNING - Fail to run due to Client.__init__() got an unexpected keyword argument 'proxies'
+[2025-11-22 22:41:23] {app.py:106} ERROR - 优化失败: Expecting value: line 1 column 1 (char 0)
+[2025-11-22 22:42:06] {role.py:672} WARNING - Fail to run due to Client.__init__() got an unexpected keyword argument 'proxies'
+[2025-11-22 22:42:06] {app.py:106} ERROR - 优化失败: Expecting value: line 1 column 1 (char 0)
+[2025-11-22 22:43:08] {role.py:672} WARNING - Fail to run due to Client.__init__() got an unexpected keyword argument 'proxies'
+[2025-11-22 22:43:08] {app.py:106} ERROR - 优化失败: Expecting value: line 1 column 1 (char 0)
+[2025-11-22 22:47:16] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int main() {
+    int a = 0;
+    a++;
+    return a;
+} 
+ ====================
+[2025-11-22 22:47:52] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int main() {
+    int a = 0;
+    a++;
+    if (a != 1) {
+        return 0;
+    }
+    return a;
+} 
+ ====================
+[2025-11-22 22:49:31] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-22 22:49:31] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 22:49:31] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 22:49:35] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int main() {
+    int a = 0;
+    if (a == 0) {
+        return 1;
+    }
+    return 0;
+} 
+ ====================
+[2025-11-22 22:49:38] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ \*
+int main() {
+    int a = 0;  // Initialize variable a to 0
+
+    if (a == 0) {  // Check if a is equal to 0
+        return 1;  // Return 1 if condition is true
+    }
+
+    return 0;  // Return 0 if condition is false
+}
+*\ 
+ 
+int main() {
+    int a = 0;
+    if (a == 0) {
+        return 1;
+    }
+    return 0;
+} 
+ ====================
+[2025-11-22 22:49:44] {role.py:215} WARNING - Could not find module 'D:\load\mycode1\DeGPT\cinspector\cinspector\cinspector-tree-sitter.so' (or one of its dependencies). Try using the full path with constructor syntax.
+[2025-11-22 22:49:44] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"a": "result"} 
+ ====================
+[2025-11-22 22:51:57] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-22 22:51:57] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 22:51:57] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 22:52:01] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+} 
+ ====================
+[2025-11-22 22:52:05] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ \*
+int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+}
+*\ 
+ 
+int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+} 
+ ====================
+[2025-11-22 22:52:06] {role.py:215} WARNING - Could not find module 'D:\load\mycode1\DeGPT\cinspector\cinspector\cinspector-tree-sitter.so' (or one of its dependencies). Try using the full path with constructor syntax.
+[2025-11-22 22:52:06] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"param_1": "n", "local_8": "prev_prev", "local_4": "prev", "local_c": "i", "local_10": "index", "local_c": "n"} 
+ ====================
+[2025-11-22 23:04:08] {role.py:185} WARNING - cinspector不可用，使用简单字符串替换: No C language parser available. Please install tree-sitter-c or build cinspector-tree-sitter.so
+[2025-11-22 23:04:15] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int main() {
+    int a = 0;
+    a++;
+    if (a != 1) {
+        return 0;
+    }
+    return a;
+} 
+ ====================
+[2025-11-22 23:06:22] {role.py:362} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-22 23:06:22] {role.py:560} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 23:06:22] {role.py:564} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-22 23:06:26] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+} 
+ ====================
+[2025-11-22 23:06:31] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ \*
+int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+}
+*\ 
+ 
+int fibonacci_recursive(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    return fibonacci_recursive(param_1 - 1) + fibonacci_recursive(param_1 - 2);
+}
+
+int fibonacci_iterative(int param_1) {
+    if (param_1 < 2) {
+        return param_1;
+    }
+    int local_8 = 0;
+    int local_4 = 1;
+    for (int local_c = 2; local_c <= param_1; local_c++) {
+        int iVar1 = local_8 + local_4;
+        local_8 = local_4;
+        local_4 = iVar1;
+    }
+    return local_4;
+}
+
+undefined4 main(void) {
+    int local_c = 10;
+    printf("斐波那契数列前%d项(递归):\n", local_c);
+    int local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_recursive(local_10));
+        local_10++;
+    }
+    putchar(10);
+    printf("斐波那契数列前%d项(迭代):\n", local_c);
+    local_10 = 0;
+    while (local_10 < local_c) {
+        printf("%d ", fibonacci_iterative(local_10));
+        local_10++;
+    }
+    putchar(10);
+    return 0;
+} 
+ ====================
+[2025-11-22 23:06:32] {role.py:242} WARNING - Warning: duplicate target names in mapping: {'param_1': 'n', 'local_8': 'prev_prev', 'local_4': 'prev', 'local_c': 'n', 'local_10': 'index'}
+[2025-11-22 23:06:32] {role.py:244} INFO - Variable mapping: {'param_1': 'n', 'local_8': 'prev_prev', 'local_4': 'prev', 'local_c': 'n', 'local_10': 'index'}
+[2025-11-22 23:06:32] {role.py:185} WARNING - cinspector不可用，使用简单字符串替换: No C language parser available. Please install tree-sitter-c or build cinspector-tree-sitter.so
+[2025-11-22 23:06:32] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"param_1": "n", "local_8": "prev_prev", "local_4": "prev", "local_c": "i", "local_10": "index", "local_c": "n"} 
+ ====================
+[2025-11-23 14:25:52] {app.py:82} INFO - 开始优化，类型: all
+[2025-11-23 14:26:11] {app.py:138} ERROR - 优化失败: Request timed out.
+[2025-11-23 14:26:11] {app.py:139} ERROR - Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\load\mycode1\DeGPT\web_ui\app.py", line 87, in optimize
+    result = model.work()
+             ^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\role.py", line 519, in work
+    response, directions = self.referee.get_direction(res['decompiler_output'])
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\role.py", line 322, in get_direction
+    response = q.query(prompt['content'].format(code=code))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\chat.py", line 103, in query
+    response = self.__query(prompt, model)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\chat.py", line 80, in __query
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 277, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions.py", line 590, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1240, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 921, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 961, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 961, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 971, in _request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+
+[2025-11-23 14:26:18] {app.py:82} INFO - 开始优化，类型: simplify
+[2025-11-23 14:26:37] {app.py:138} ERROR - 优化失败: Request timed out.
+[2025-11-23 14:26:37] {app.py:139} ERROR - Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 62, in start_tls
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 57, in start_tls
+    sock = ssl_context.wrap_socket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 218, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 262, in handle_request
+    raise exc
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\connection_pool.py", line 245, in handle_request
+    response = connection.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_sync\http_proxy.py", line 299, in handle_request
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_backends\sync.py", line 54, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 952, in _request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 901, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 929, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 966, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_client.py", line 1002, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 217, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout: _ssl.c:983: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\load\mycode1\DeGPT\web_ui\app.py", line 117, in optimize
+    result = single_opt(code, dtype)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\role.py", line 347, in single_opt
+    advisor_code, response = advisor.get_advice(decompile_code, opt_type)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\role.py", line 153, in get_advice
+    code, response = method(code)
+                     ^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\role.py", line 242, in _simplify
+    response = q.query(prompt['content'].format(code=code))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\chat.py", line 103, in query
+    response = self.__query(prompt, model)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\load\mycode1\DeGPT\degpt\chat.py", line 80, in __query
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 277, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions.py", line 590, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1240, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 921, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 961, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 961, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hfy22\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 971, in _request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+
+[2025-11-23 14:29:04] {app.py:82} INFO - 开始优化，类型: all
+[2025-11-23 14:29:10] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 14:29:10] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:29:10] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:29:11] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 14:29:18] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ \*
+int fibonacci(int n) {
+    // Base case: return n if n is 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: sum of the two preceding numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+*\ 
+ 
+int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 14:29:19] {role.py:215} WARNING - Could not find module 'D:\load\mycode1\DeGPT\cinspector\cinspector\cinspector-tree-sitter.so' (or one of its dependencies). Try using the full path with constructor syntax.
+[2025-11-23 14:29:19] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "input"} 
+ ====================
+[2025-11-23 14:29:19] {app.py:134} INFO - 优化完成
+[2025-11-23 14:30:54] {app.py:82} INFO - 开始优化，类型: all
+[2025-11-23 14:30:55] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 14:30:55] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:30:55] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:31:02] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int main(int argument_count, char** argument_vector_values)
+{
+    int integer_result_value = 0;
+    int integer_array_storage[10];
+    
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_array_storage[integer_loop_counter] = integer_loop_counter * integer_loop_counter;
+    }
+    
+    int integer_temp_storage = 0;
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_temp_storage += integer_array_storage[integer_loop_counter];
+    }
+    
+    integer_result_value = integer_temp_storage;
+    
+    printf("The calculated result value is: %d\n", integer_result_value);
+    
+    return 0;
+} 
+ ====================
+[2025-11-23 14:31:11] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ \*// Entry point of the program
+int main(int argument_count, char** argument_vector_values)
+{
+    // Variable to store the final result
+    int integer_result_value = 0;
+    
+    // Array to store squared values of indices
+    int integer_array_storage[10];
+    
+    // Fill the array with squares of indices
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_array_storage[integer_loop_counter] = integer_loop_counter * integer_loop_counter;
+    }
+    
+    // Variable to accumulate the sum of array elements
+    int integer_temp_storage = 0;
+    
+    // Sum all elements of the array
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_temp_storage += integer_array_storage[integer_loop_counter];
+    }
+    
+    // Assign the accumulated sum to the result variable
+    integer_result_value = integer_temp_storage;
+    
+    // Print the calculated result
+    printf("The calculated result value is: %d\n", integer_result_value);
+    
+    // Exit the program
+    return 0;
+}*\ 
+ 
+int main(int argument_count, char** argument_vector_values)
+{
+    int integer_result_value = 0;
+    int integer_array_storage[10];
+    
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_array_storage[integer_loop_counter] = integer_loop_counter * integer_loop_counter;
+    }
+    
+    int integer_temp_storage = 0;
+    for (int integer_loop_counter = 0; integer_loop_counter < 10; integer_loop_counter++)
+    {
+        integer_temp_storage += integer_array_storage[integer_loop_counter];
+    }
+    
+    integer_result_value = integer_temp_storage;
+    
+    printf("The calculated result value is: %d\n", integer_result_value);
+    
+    return 0;
+} 
+ ====================
+[2025-11-23 14:31:17] {role.py:215} WARNING - Could not find module 'D:\load\mycode1\DeGPT\cinspector\cinspector\cinspector-tree-sitter.so' (or one of its dependencies). Try using the full path with constructor syntax.
+[2025-11-23 14:31:17] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"argument_count": "argc", "argument_vector_values": "argv", "integer_result_value": "result", "integer_array_storage": "squares", "integer_loop_counter": "i", "integer_temp_storage": "sum"} 
+ ====================
+[2025-11-23 14:31:17] {app.py:134} INFO - 优化完成
+[2025-11-23 14:36:06] {app.py:82} INFO - 开始优化，类型: all
+[2025-11-23 14:36:06] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 14:36:06] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:36:06] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:36:07] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 14:36:14] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ 
+int fibonacci(int n) {
+    // Base case: return n if n is 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: return sum of previous two Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+ 
+ ====================
+[2025-11-23 14:36:14] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "position"} 
+ ====================
+[2025-11-23 14:36:14] {app.py:134} INFO - 优化完成
+[2025-11-23 14:38:23] {app.py:82} INFO - 开始优化，类型: all
+[2025-11-23 14:38:29] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 14:38:29] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:38:29] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 14:38:35] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 14:38:36] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ 
+int fibonacci(int n) {
+    // Base case: return n if n is 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: sum of the two preceding numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+ 
+ ====================
+[2025-11-23 14:38:37] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "input"} 
+ ====================
+[2025-11-23 14:38:37] {app.py:134} INFO - 优化完成
+[2025-11-23 15:25:22] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 15:25:22] {role_v2.py:260} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 15:25:22] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 15:25:22] {role_v2.py:266} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 15:25:22] {role_v2.py:269} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 15:26:09] {role_v2.py:276} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 15:26:09] {app.py:111} INFO - 二角色优化完成
+[2025-11-23 15:26:47] {app.py:91} INFO - 开始优化，类型: all, 模式: 三角色
+[2025-11-23 15:27:09] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 15:27:09] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 15:27:09] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 15:27:31] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 15:28:06] {app.py:91} INFO - 开始优化，类型: all, 模式: 三角色
+[2025-11-23 15:28:28] {role.py:324} INFO - [Referee] response: yes  
+yes  
+yes
+[2025-11-23 15:28:28] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 15:28:28] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 15:28:30] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 15:28:52] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ 
+int fibonacci(int n) {
+    // Base case: return n if n is 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: sum of the two preceding numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+ 
+ ====================
+[2025-11-23 15:28:53] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "input"} 
+ ====================
+[2025-11-23 15:28:53] {app.py:167} INFO - 优化完成
+[2025-11-23 15:37:08] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 15:37:08] {role_v2.py:260} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 15:37:08] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 15:37:08] {role_v2.py:266} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 15:37:08] {role_v2.py:269} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 15:37:30] {role_v2.py:198} ERROR - Optimization simplify failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided. For details, see: https://help.aliyun.com/zh/model-studio/error-code#apikey-error', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}, 'request_id': '37ac406b-8807-45be-8f5f-cc7a245c1141'}
+[2025-11-23 15:37:51] {role_v2.py:198} ERROR - Optimization comment failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided. For details, see: https://help.aliyun.com/zh/model-studio/error-code#apikey-error', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}, 'request_id': 'd7905ae2-5b31-42d8-8262-624632eb65ab'}
+[2025-11-23 15:37:52] {role_v2.py:198} ERROR - Optimization rename failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided. For details, see: https://help.aliyun.com/zh/model-studio/error-code#apikey-error', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}, 'request_id': '005a43db-23aa-4ab4-9073-e0afa3b8d192'}
+[2025-11-23 15:37:52] {role_v2.py:276} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 15:37:52] {app.py:111} INFO - 二角色优化完成
+[2025-11-23 15:41:28] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 15:41:28] {role_v2.py:260} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 15:41:28] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 15:41:28] {role_v2.py:266} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 15:41:28] {role_v2.py:269} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 15:41:49] {role_v2.py:198} ERROR - Optimization simplify failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided. For details, see: https://help.aliyun.com/zh/model-studio/error-code#apikey-error', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}, 'request_id': '053d794a-749d-448a-ae7d-89d5836e43c6'}
+[2025-11-23 15:42:11] {role_v2.py:198} ERROR - Optimization comment failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided. For details, see: https://help.aliyun.com/zh/model-studio/error-code#apikey-error', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}, 'request_id': '7ac94511-54c7-475a-bf72-712afc40b444'}
+[2025-11-23 15:44:59] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 15:44:59] {role_v2.py:260} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 15:44:59] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 15:44:59] {role_v2.py:266} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 15:44:59] {role_v2.py:269} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 15:44:59] {role_v2.py:198} ERROR - Optimization simplify failed: Error code: 400 - {'error': {'message': 'Model Not Exist', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+[2025-11-23 15:45:00] {role_v2.py:198} ERROR - Optimization comment failed: Error code: 400 - {'error': {'message': 'Model Not Exist', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+[2025-11-23 15:45:01] {role_v2.py:198} ERROR - Optimization rename failed: Error code: 400 - {'error': {'message': 'Model Not Exist', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+[2025-11-23 15:45:01] {role_v2.py:276} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 15:45:01] {app.py:111} INFO - 二角色优化完成
+[2025-11-23 15:47:54] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 15:47:54] {role_v2.py:270} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 15:47:54] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 15:47:54] {role_v2.py:276} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 15:47:54] {role_v2.py:279} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 15:48:14] {role_v2.py:286} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 15:48:14] {app.py:111} INFO - 二角色优化完成
+[2025-11-23 17:43:52] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 17:43:52] {role_v2.py:270} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 17:43:52] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 17:43:52] {role_v2.py:276} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 17:43:52] {role_v2.py:279} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 17:44:12] {role_v2.py:286} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 17:44:12] {app.py:112} INFO - 二角色优化完成 - 原始代码长度: 230, 优化后长度: 565
+[2025-11-23 17:44:12] {app.py:113} INFO - 优化后代码是否改变: True
+[2025-11-23 17:45:43] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 17:45:43] {role_v2.py:270} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 17:45:43] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 17:45:43] {role_v2.py:276} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 17:45:43] {role_v2.py:279} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 17:46:02] {role_v2.py:286} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 17:46:02] {app.py:112} INFO - 二角色优化完成 - 原始代码长度: 230, 优化后长度: 565
+[2025-11-23 17:46:02] {app.py:113} INFO - 优化后代码是否改变: True
+[2025-11-23 17:49:56] {app.py:91} INFO - 开始优化，类型: all, 模式: 二角色
+[2025-11-23 17:49:56] {role_v2.py:270} INFO - [DualRoleModel] Starting analysis...
+[2025-11-23 17:49:56] {role_v2.py:80} ERROR - Analyzer failed: '\n  "needs_simplify"'
+[2025-11-23 17:49:56] {role_v2.py:276} INFO - [DualRoleModel] Optimizations needed: ['simplify', 'comment', 'rename']
+[2025-11-23 17:49:56] {role_v2.py:279} INFO - [DualRoleModel] Starting optimization...
+[2025-11-23 17:50:16] {role_v2.py:286} INFO - [DualRoleModel] Optimization completed
+[2025-11-23 17:50:16] {app.py:112} INFO - 二角色优化完成 - 原始代码长度: 230, 优化后长度: 547
+[2025-11-23 17:50:16] {app.py:113} INFO - 优化后代码是否改变: True
+[2025-11-23 17:51:18] {app.py:91} INFO - 开始优化，类型: all, 模式: 三角色
+[2025-11-23 17:51:19] {role.py:324} INFO - [Referee] response: Yes
+Yes
+Yes
+[2025-11-23 17:51:19] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 17:51:19] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 17:51:22] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 17:51:26] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ int fibonacci(int n) {
+    // Base case: return n if n is 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    // Recursive case: sum of previous two Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 17:51:27] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "number"} 
+ ====================
+[2025-11-23 17:51:27] {app.py:170} INFO - 优化完成
+[2025-11-23 17:52:04] {app.py:91} INFO - 开始优化，类型: all, 模式: 三角色
+[2025-11-23 17:52:05] {role.py:324} INFO - [Referee] response: Yes
+Yes
+Yes
+[2025-11-23 17:52:05] {role.py:522} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 17:52:05] {role.py:526} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-23 17:52:08] {role.py:154} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-23 17:52:12] {role.py:154} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ 
+int fibonacci(int n) {
+    // Base case: return n if it's 0 or 1
+    if (n < 2) {
+        return n;
+    }
+    // Recursive case: sum of previous two Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+ 
+ ====================
+[2025-11-23 17:52:14] {role.py:154} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "number"} 
+ ====================
+[2025-11-23 17:52:14] {app.py:170} INFO - 优化完成

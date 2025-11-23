@@ -1,53 +1,8 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python,macos,linux
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,macos,linux
+# Created by https://www.toptal.com/developers/gitignore/api/python
+# Edit at https://www.toptal.com/developers/gitignore?templates=python
 
-### Linux ###
-*~
-
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
-
-# KDE directory preferences
-.directory
-
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
-
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
-
-### macOS ###
-# General
+### MacOS ###
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-### macOS Patch ###
-# iCloud generated files
-*.icloud
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -56,7 +11,10 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
+# *.so -> comment since tree-sitter.so
+
+# mute testcase
+test/testcase
 
 # Distribution / packaging
 .Python
@@ -121,7 +79,14 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+docs/*
+!docs/conf.py
+!docs/make.bat
+!docs/Makefile
+!docs/_static/
+!docs/_templates/
+!docs/md/
+!docs/index.rst
 
 # PyBuilder
 .pybuilder/
@@ -153,15 +118,7 @@ ipython_config.py
 #   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
 #poetry.lock
 
-# pdm
-#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#pdm.lock
-#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
-#   in version control.
-#   https://pdm.fming.dev/#use-with-ide
-.pdm.toml
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
 # Celery stuff
@@ -205,23 +162,10 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-### Python Patch ###
-# Poetry local configuration file - https://python-poetry.org/docs/configuration/#local-configuration
-poetry.toml
-
-# ruff
-.ruff_cache/
-
-# LSP config files
-pyrightconfig.json
-
-# End of https://www.toptal.com/developers/gitignore/api/python,macos,linux
-
-# Ignore output dir
-output/
+# End of https://www.toptal.com/developers/gitignore/api/python

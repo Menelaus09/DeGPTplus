@@ -1,0 +1,39 @@
+[
+    {
+        "name": "analyze",
+        "prompt": {
+            "role": "user",
+            "content": "Analyze the following C code and determine what optimizations are needed. Consider:\n1. Code simplification (remove redundant variables, simplify expressions)\n2. Adding comments (explain complex logic)\n3. Variable renaming (use meaningful names)\n\nRespond with a JSON object:\n{\n  \"needs_simplify\": true/false,\n  \"needs_comment\": true/false,\n  \"needs_rename\": true/false,\n  \"analysis\": \"brief explanation of what needs optimization\"\n}\n\nCode:\n{code}"
+        }
+    },
+    {
+        "name": "optimize_simplify",
+        "prompt": {
+            "role": "user",
+            "content": "Simplify the following C code by:\n- Removing redundant variables\n- Simplifying complex expressions\n- Eliminating unnecessary code\n- Preserving exact semantics\n\nReturn only the optimized C code without explanations:\n\n{code}"
+        }
+    },
+    {
+        "name": "optimize_comment",
+        "prompt": {
+            "role": "user",
+            "content": "Add helpful comments to the following C code:\n- Explain the purpose of functions\n- Clarify complex logic\n- Document important variables\n- Use clear, concise comments\n\nReturn the code with comments:\n\n{code}"
+        }
+    },
+    {
+        "name": "optimize_rename",
+        "prompt": {
+            "role": "user",
+            "content": "Rename variables and functions in the following C code to have more meaningful, descriptive names:\n- Use clear, self-documenting names\n- Follow C naming conventions\n- Preserve exact semantics\n- Don't rename standard library functions\n\nReturn only the optimized code:\n\n{code}"
+        }
+    },
+    {
+        "name": "optimize_all",
+        "prompt": {
+            "role": "user",
+            "content": "Optimize the following C code comprehensively:\n1. Simplify by removing redundant code\n2. Add helpful comments\n3. Rename variables to be more meaningful\n4. Preserve exact semantics\n\nReturn the fully optimized code:\n\n{code}"
+        }
+    }
+]
+
+

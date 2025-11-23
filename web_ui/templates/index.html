@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeGPT - 反编译器输出优化工具</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 DeGPT</h1>
+            <p class="subtitle">使用LLM优化反编译器输出</p>
+        </header>
+
+        <div class="config-status" id="configStatus">
+            <div class="status-indicator" id="statusIndicator"></div>
+            <span id="statusText">正在检查配置...</span>
+        </div>
+
+        <main>
+            <div class="input-section">
+                <div class="section-header">
+                    <h2>输入代码</h2>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="clearCode()">清空</button>
+                        <button class="btn btn-secondary" onclick="loadExample()">加载示例</button>
+                    </div>
+                </div>
+                <textarea 
+                    id="codeInput" 
+                    placeholder="请输入反编译的C代码..."
+                    spellcheck="false"
+                ></textarea>
+            </div>
+
+            <div class="control-section">
+                <div class="section-header">
+                    <h2>优化选项</h2>
+                </div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="optType" value="all" checked>
+                        <span>全部优化 (简化 + 注释 + 重命名)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="optType" value="simplify">
+                        <span>简化代码</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="optType" value="comment">
+                        <span>添加注释</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="optType" value="rename">
+                        <span>重命名变量</span>
+                    </label>
+                </div>
+                <div class="checkbox-option" style="margin-top: 15px; padding: 12px; background: var(--bg-color); border-radius: 6px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="useDualRole" style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                        <span>使用二角色模式（推荐，适合更强大的AI模型）</span>
+                    </label>
+                    <p style="margin: 8px 0 0 28px; font-size: 0.85rem; color: var(--text-secondary);">
+                        二角色模式：Analyzer（分析）+ Optimizer（优化），更高效，适合GPT-4、Qwen-Max等强大模型
+                    </p>
+                </div>
+                <button class="btn btn-primary" id="optimizeBtn" onclick="optimizeCode()">
+                    <span id="btnText">开始优化</span>
+                    <span id="btnLoader" class="loader" style="display: none;"></span>
+                </button>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="section-header">
+                    <h2>优化结果</h2>
+                    <button class="btn btn-secondary" onclick="copyResult()">复制结果</button>
+                </div>
+                
+                <div class="code-comparison">
+                    <div class="code-panel">
+                        <div class="panel-header">原始代码</div>
+                        <pre><code class="language-c" id="originalCode"></code></pre>
+                    </div>
+                    <div class="code-panel">
+                        <div class="panel-header">优化后代码</div>
+                        <pre><code class="language-c" id="optimizedCode"></code></pre>
+                    </div>
+                </div>
+
+                <div class="optimization-details" id="optimizationDetails" style="display: none;">
+                    <h3>优化详情</h3>
+                    <div id="detailsContent"></div>
+                </div>
+            </div>
+
+            <div class="error-section" id="errorSection" style="display: none;">
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>DeGPT - Optimizing Decompiler Output with LLM (NDSS 2024)</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
+
+

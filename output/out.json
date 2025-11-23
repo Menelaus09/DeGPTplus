@@ -1,0 +1,43 @@
+{
+    "source_code": null,
+    "decompiler_output": "int Fibon(int param_1) {\n    int iVar1;\n    int iVar2;\n    if ((param_1 == 1) || (param_1 == 2)) {\n        iVar2 = 1;\n    } else {\n        iVar1 = Fibon(param_1 + -1);\n        iVar2 = Fibon(param_1 + -2);\n        iVar2 = iVar2 + iVar1;\n    }\n    return iVar2;\n}\n",
+    "workflow": "DONE",
+    "original_directions_src": "yes  \nyes  \nyes",
+    "original_directions": [
+        "SIMPLIFY",
+        "ADD_COMMENT",
+        "RENAME_VAR"
+    ],
+    "sorted_directions": [
+        "SIMPLIFY",
+        "ADD_COMMENT",
+        "RENAME_VAR"
+    ],
+    "optimization": {
+        "SIMPLIFY": {
+            "input": "int Fibon(int param_1) {\n    int iVar1;\n    int iVar2;\n    if ((param_1 == 1) || (param_1 == 2)) {\n        iVar2 = 1;\n    } else {\n        iVar1 = Fibon(param_1 + -1);\n        iVar2 = Fibon(param_1 + -2);\n        iVar2 = iVar2 + iVar1;\n    }\n    return iVar2;\n}\n",
+            "advisor": "int Fibon(int param_1) {\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}",
+            "advisor_response": "int Fibon(int param_1) {\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}",
+            "operator": "int Fibon(int param_1) {\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}",
+            "status": "SUCC",
+            "output": "int Fibon(int param_1) {\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}"
+        },
+        "ADD_COMMENT": {
+            "input": "int Fibon(int param_1) {\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}",
+            "advisor": "\nint Fibon(int param_1) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}\n",
+            "advisor_response": "\nint Fibon(int param_1) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}\n",
+            "operator": "\nint Fibon(int param_1) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}\n",
+            "status": "SUCC",
+            "output": "\nint Fibon(int param_1) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}\n"
+        },
+        "RENAME_VAR": {
+            "input": "\nint Fibon(int param_1) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((param_1 == 1) || (param_1 == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(param_1 - 1) + Fibon(param_1 - 2);\n}\n",
+            "advisor": "\nint Fibon(int n) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((n == 1) || (n == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(n - 1) + Fibon(n - 2);\n}\n",
+            "advisor_response": "{\"param_1\": \"n\"}",
+            "operator": "\nint Fibon(int n) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((n == 1) || (n == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(n - 1) + Fibon(n - 2);\n}\n",
+            "status": "SUCC",
+            "output": "\nint Fibon(int n) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((n == 1) || (n == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(n - 1) + Fibon(n - 2);\n}\n"
+        }
+    },
+    "output": "\nint Fibon(int n) {\n    // Base case: return 1 for the first and second Fibonacci numbers\n    if ((n == 1) || (n == 2)) {\n        return 1;\n    }\n    // Recursive case: sum of the two preceding Fibonacci numbers\n    return Fibon(n - 1) + Fibon(n - 2);\n}\n"
+}
