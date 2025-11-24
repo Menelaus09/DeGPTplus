@@ -1,0 +1,4 @@
+{
+    "decompiler_output": "\nint main() {\n    int a = 0;\n    a = a + 1;\n    return a;\n}\n",
+    "output": "int main() {\n    int a = 0;\n    a++;\n    return a;\n}"
+}
