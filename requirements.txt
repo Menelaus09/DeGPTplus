@@ -1,0 +1,75 @@
+# DeGPT 项目依赖文件
+# 安装命令: pip install -r requirements.txt
+
+# ============================================
+# 核心依赖（必需）
+# ============================================
+
+# OpenAI API 客户端（兼容多种 LLM 服务）
+openai==1.28.1
+
+# Token 计数工具
+tiktoken==0.2.0
+
+# 字符串相似度计算（用于语义比较）
+python-levenshtein>=0.12.0
+
+# HTTP 客户端（用于 API 请求）
+httpx>=0.24.0
+
+# ============================================
+# Web UI 依赖（可选，仅使用 Web 界面时需要）
+# ============================================
+
+# Flask Web 框架
+Flask==3.0.0
+
+# Flask CORS 支持
+flask-cors==4.0.0
+
+# ============================================
+# cinspector 依赖（cinspector 安装时会自动安装）
+# 这里列出以供参考，实际安装 cinspector 时会自动处理
+# ============================================
+# networkx>=2.0
+# tree-sitter==0.20.4
+
+# ============================================
+# 开发依赖（可选）
+# ============================================
+# pytest>=7.0.0  # 用于运行测试
+
+# ============================================
+# 安装说明
+# ============================================
+# 
+# 1. 安装基础依赖：
+#    pip install -r requirements.txt
+#
+# 2. 安装 cinspector（必需，需要单独安装）：
+#    git clone https://github.com/PeiweiHu/cinspector
+#    cd cinspector
+#    pip install .
+#    cd ..
+#
+# 3. 如果只使用命令行模式，可以跳过 Flask 相关依赖：
+#    pip install openai==1.28.1 tiktoken==0.2.0 python-levenshtein httpx
+#
+# 4. 如果只使用 Web UI，需要安装所有依赖：
+#    pip install -r requirements.txt
+#    cd web_ui
+#    pip install -r requirements.txt
+#    cd ..
+#
+# ============================================
+# Python 版本要求
+# ============================================
+# Python >= 3.9
+
+# ============================================
+# 系统要求
+# ============================================
+# Windows: 需要 Visual Studio Build Tools（用于编译 cinspector）
+# Linux: 需要 build-essential（sudo apt install build-essential）
+# macOS: 需要 Xcode Command Line Tools（xcode-select --install）
+

@@ -1,7 +1,37 @@
+# DeGPT Web UI 依赖文件
+# 安装命令: pip install -r requirements.txt
+
+# ============================================
+# Web 框架依赖（必需）
+# ============================================
+
+# Flask Web 框架
 Flask==3.0.0
+
+# Flask CORS 支持（跨域请求）
 flask-cors==4.0.0
 
-
-
-
-
+# ============================================
+# 注意
+# ============================================
+# Web UI 依赖于 degpt 模块，因此还需要安装项目根目录的 requirements.txt
+# 
+# 完整安装步骤：
+# 1. 在项目根目录安装核心依赖：
+#    pip install -r requirements.txt
+#
+# 2. 在 web_ui 目录安装 Web UI 依赖：
+#    cd web_ui
+#    pip install -r requirements.txt
+#
+# 3. 安装 cinspector（必需）：
+#    cd ..
+#    git clone https://github.com/PeiweiHu/cinspector
+#    cd cinspector
+#    pip install .
+#    cd ..
+#
+# ============================================
+# Python 版本要求
+# ============================================
+# Python >= 3.9
