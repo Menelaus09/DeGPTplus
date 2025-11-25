@@ -30,7 +30,6 @@ try:
     from role_v2 import (
         DualRoleModel,
         dual_role_optimize,
-        TwoRoleModeA,
         TwoRoleModeB,
         one_shot_optimize,
     )
@@ -100,7 +99,8 @@ def run_optimization(code: str, opt_type: str, workflow_mode: str, use_dual_role
                 result['sorted_directions'] = raw.get('sorted_directions', [])
 
         elif workflow_mode == 'two_role_a':
-            model = TwoRoleModeA(decompile_code=code, mssc_stats=mssc_stats)
+            # 使用旧版二角色模式（DualRoleModel）
+            model = DualRoleModel(decompile_code=code, mssc_stats=mssc_stats)
             raw = model.work()
             effective_workflow = 'TWO_ROLE_A'
             result = {
@@ -108,9 +108,10 @@ def run_optimization(code: str, opt_type: str, workflow_mode: str, use_dual_role
                 'optimized_code': raw.get('output', code),
                 'workflow': effective_workflow,
                 'analysis': raw.get('analysis', ''),
-                'decisions': raw.get('decisions', {}),
-                'steps': raw.get('steps', []),
+                'optimizations_needed': raw.get('optimizations_needed', []),
             }
+            if 'optimization_response' in raw:
+                result['optimization_response'] = raw.get('optimization_response', '')
 
         elif workflow_mode == 'two_role_b':
             model = TwoRoleModeB(decompile_code=code, mssc_stats=mssc_stats)
@@ -123,6 +124,7 @@ def run_optimization(code: str, opt_type: str, workflow_mode: str, use_dual_role
                 'analysis': raw.get('analysis', ''),
                 'directions': raw.get('directions', []),
                 'mssc_status': raw.get('mssc_status', ''),
+                'optimizations': raw.get('optimizations', {}),
             }
 
         else:  # one_shot
@@ -134,10 +136,12 @@ def run_optimization(code: str, opt_type: str, workflow_mode: str, use_dual_role
                 'workflow': effective_workflow,
                 'llm_raw_response': raw.get('llm_raw_response', ''),
                 'mssc_status': raw.get('mssc_status', ''),
+                'optimizations': raw.get('optimizations', {}),
             }
 
     else:
         # 未显式指定 workflow_mode：兼容旧逻辑
+        # 注意：use_dual_role 选项已从前端移除，此逻辑保留用于向后兼容
         if use_dual_role and DUAL_ROLE_AVAILABLE and opt_type == 'all':
             model = DualRoleModel(decompile_code=code, mssc_stats=mssc_stats)
             raw = model.work()

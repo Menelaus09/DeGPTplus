@@ -7,6 +7,7 @@ import signal
 from enum import Enum, unique
 from Levenshtein import distance
 from typing import List, Optional, Set, Dict, Union
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from cinspector.interfaces import CCode
 from cinspector.nodes import BasicNode, Node, CallExpressionNode, Util, FunctionDefinitionNode
 from cinspector.analysis import CFG
@@ -16,18 +17,43 @@ sys.path.append(os.path.join(DIR, '..'))
 
 
 def run_timer(func, *, args = [], time = 1, info = 'run_timer failed'):
-    def timeout_callback(signum, frame):
-        raise Exception(f'timeout')
-    signal.signal(signal.SIGALRM, timeout_callback)
-    signal.alarm(time)
-    try:
-        rtn = func(*args)
-    except Exception as e:
-        print(e)
-        print(info)
-        return None
-    signal.alarm(0)
-    return rtn
+    """
+    跨平台的超时函数实现。
+    在 Windows 上使用 ThreadPoolExecutor，在 Unix 上优先使用 signal（如果可用）。
+    """
+    # 检测是否支持 SIGALRM（Unix/Linux/macOS）
+    has_sigalrm = hasattr(signal, 'SIGALRM')
+    
+    if has_sigalrm:
+        # Unix/Linux/macOS: 使用 signal.SIGALRM
+        def timeout_callback(signum, frame):
+            raise Exception(f'timeout')
+        signal.signal(signal.SIGALRM, timeout_callback)
+        signal.alarm(time)
+        try:
+            rtn = func(*args)
+            signal.alarm(0)
+            return rtn
+        except Exception as e:
+            signal.alarm(0)
+            print(e)
+            print(info)
+            return None
+    else:
+        # Windows: 使用 ThreadPoolExecutor 实现超时
+        try:
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(func, *args)
+                rtn = future.result(timeout=time)
+                return rtn
+        except FuturesTimeoutError:
+            print(f'timeout')
+            print(info)
+            return None
+        except Exception as e:
+            print(e)
+            print(info)
+            return None
 
 
 def check_with_mssc(original: str, candidate: str, stats: Optional[Dict[str, int]] = None, timeout: int = 10) -> bool:

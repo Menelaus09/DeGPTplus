@@ -67,7 +67,7 @@
                     </label>
                     <label class="radio-option">
                         <input type="radio" name="workflowMode" value="two_role_a">
-                        <span>二角色 A（AnalyzerA + OperatorA）</span>
+                        <span>二角色 A（Analyzer + Optimizer）</span>
                     </label>
                     <label class="radio-option">
                         <input type="radio" name="workflowMode" value="two_role_b">
@@ -77,15 +77,6 @@
                         <input type="radio" name="workflowMode" value="one_shot">
                         <span>One-shot（实验性，强模型推荐）</span>
                     </label>
-                </div>
-                <div class="checkbox-option" style="margin-top: 15px; padding: 12px; background: var(--bg-color); border-radius: 6px;">
-                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                        <input type="checkbox" id="useDualRole" style="width: 18px; height: 18px; accent-color: var(--primary-color);">
-                        <span>使用旧版二角色模式（兼容，Analyzer + Optimizer）</span>
-                    </label>
-                    <p style="margin: 8px 0 0 28px; font-size: 0.85rem; color: var(--text-secondary);">
-                        旧版二角色模式：Analyzer（分析）+ Optimizer（优化），用于兼容早期接口
-                    </p>
                 </div>
                 <button class="btn btn-primary" id="optimizeBtn" onclick="optimizeCode()">
                     <span id="btnText">开始优化</span>

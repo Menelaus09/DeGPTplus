@@ -1480,3 +1480,230 @@ AttributeError: module 'signal' has no attribute 'SIGALRM'. Did you mean: 'SIGAB
                   ^^^^^^^^^^^^^^
 AttributeError: module 'signal' has no attribute 'SIGALRM'. Did you mean: 'SIGABRT'?
 
+[2025-11-25 20:38:04] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: one_shot, 模式: 三角色
+[2025-11-25 20:38:08] {app.py:272} ERROR - 优化失败: module 'signal' has no attribute 'SIGALRM'
+[2025-11-25 20:38:08] {app.py:273} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 260, in optimize
+    result = run_optimization(code, opt_type, workflow_mode, use_dual_role)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 129, in run_optimization
+    raw = one_shot_optimize(code, mssc_stats=mssc_stats)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 682, in one_shot_optimize
+    accepted = check_with_mssc(code, candidate_code, mssc_stats)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 59, in check_with_mssc
+    ok = run_timer(semantic_cmp.is_semantic_equal, time=timeout, info='mssc semantic comparison timeout')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 21, in run_timer
+    signal.signal(signal.SIGALRM, timeout_callback)
+                  ^^^^^^^^^^^^^^
+AttributeError: module 'signal' has no attribute 'SIGALRM'. Did you mean: 'SIGABRT'?
+
+[2025-11-25 20:48:07] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: one_shot, 模式: 三角色
+[2025-11-25 20:48:13] {app.py:272} ERROR - 优化失败: module 'signal' has no attribute 'SIGALRM'
+[2025-11-25 20:48:13] {app.py:273} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 260, in optimize
+    result = run_optimization(code, opt_type, workflow_mode, use_dual_role)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 129, in run_optimization
+    raw = one_shot_optimize(code, mssc_stats=mssc_stats)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 682, in one_shot_optimize
+    accepted = check_with_mssc(code, candidate_code, mssc_stats)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 59, in check_with_mssc
+    ok = run_timer(semantic_cmp.is_semantic_equal, time=timeout, info='mssc semantic comparison timeout')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 21, in run_timer
+    signal.signal(signal.SIGALRM, timeout_callback)
+                  ^^^^^^^^^^^^^^
+AttributeError: module 'signal' has no attribute 'SIGALRM'. Did you mean: 'SIGABRT'?
+
+[2025-11-25 20:56:01] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: one_shot, 模式: 三角色
+[2025-11-25 20:56:06] {app.py:272} ERROR - 优化失败: module 'signal' has no attribute 'SIGALRM'
+[2025-11-25 20:56:06] {app.py:273} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 260, in optimize
+    result = run_optimization(code, opt_type, workflow_mode, use_dual_role)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\web_ui\app.py", line 129, in run_optimization
+    raw = one_shot_optimize(code, mssc_stats=mssc_stats)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 682, in one_shot_optimize
+    accepted = check_with_mssc(code, candidate_code, mssc_stats)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 59, in check_with_mssc
+    ok = run_timer(semantic_cmp.is_semantic_equal, time=timeout, info='mssc semantic comparison timeout')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\mssc.py", line 21, in run_timer
+    signal.signal(signal.SIGALRM, timeout_callback)
+                  ^^^^^^^^^^^^^^
+AttributeError: module 'signal' has no attribute 'SIGALRM'. Did you mean: 'SIGABRT'?
+
+[2025-11-25 20:58:56] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: one_shot, 模式: 三角色
+[2025-11-25 20:59:02] {app.py:267} INFO - 优化完成
+[2025-11-25 20:59:16] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: two_role_a, 模式: 三角色
+[2025-11-25 20:59:16] {role_v2.py:485} ERROR - [TwoRoleModeA] Error: '\n  "should_simplify"'
+[2025-11-25 20:59:16] {role_v2.py:486} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 476, in work
+    analysis_text, decisions = self.analyzer.analyze(self.code)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 355, in analyze
+    response = self.llm.query(prompt_content.format(code=code))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: '\n  "should_simplify"'
+
+[2025-11-25 20:59:16] {app.py:267} INFO - 优化完成
+[2025-11-25 20:59:26] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: two_role_a, 模式: 三角色
+[2025-11-25 20:59:26] {role_v2.py:485} ERROR - [TwoRoleModeA] Error: '\n  "should_simplify"'
+[2025-11-25 20:59:26] {role_v2.py:486} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 476, in work
+    analysis_text, decisions = self.analyzer.analyze(self.code)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 355, in analyze
+    response = self.llm.query(prompt_content.format(code=code))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: '\n  "should_simplify"'
+
+[2025-11-25 20:59:26] {app.py:267} INFO - 优化完成
+[2025-11-25 20:59:29] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: two_role_b, 模式: 三角色
+[2025-11-25 20:59:32] {role.py:346} INFO - [Referee] response: yes yes yes
+[2025-11-25 20:59:36] {app.py:267} INFO - 优化完成
+[2025-11-25 21:00:17] {app.py:256} INFO - 开始优化，类型: all, workflow_mode: three_role, 模式: 三角色
+[2025-11-25 21:00:19] {role.py:346} INFO - [Referee] response: yes
+yes
+yes
+[2025-11-25 21:00:19] {role.py:547} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:00:19] {role.py:551} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:00:22] {role.py:177} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:00:25] {role.py:177} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ int fibonacci(int n) {
+    // Base case: if n is 0 or 1, return n
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: return sum of the two preceding Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:00:27] {role.py:177} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "term"} 
+ ====================
+[2025-11-25 21:00:27] {app.py:267} INFO - 优化完成
+[2025-11-25 21:11:22] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: two_role_b, 模式: 三角色
+[2025-11-25 21:11:25] {role.py:346} INFO - [Referee] response: yes
+yes
+yes
+[2025-11-25 21:11:28] {app.py:270} INFO - 优化完成
+[2025-11-25 21:13:26] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: three_role, 模式: 三角色
+[2025-11-25 21:13:28] {role.py:346} INFO - [Referee] response: yes
+yes
+yes
+[2025-11-25 21:13:28] {role.py:547} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:13:28] {role.py:551} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:13:31] {role.py:177} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:13:35] {role.py:177} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ int fibonacci(int n) {
+    // Base case: if n is 0 or 1, return n
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: return sum of the two preceding Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:13:37] {role.py:177} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "term"} 
+ ====================
+[2025-11-25 21:13:37] {app.py:270} INFO - 优化完成
+[2025-11-25 21:19:31] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: two_role_a, 模式: 三角色
+[2025-11-25 21:19:31] {role_v2.py:509} ERROR - [TwoRoleModeA] Error: '\n  "should_simplify"'
+[2025-11-25 21:19:31] {role_v2.py:510} ERROR - Traceback (most recent call last):
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 500, in work
+    analysis_text, decisions = self.analyzer.analyze(self.code)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\DeGPTplus-master\DeGPTplus_backup\degpt\role_v2.py", line 355, in analyze
+    response = self.llm.query(prompt_content.format(code=code))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: '\n  "should_simplify"'
+
+[2025-11-25 21:19:31] {app.py:270} INFO - 优化完成
+[2025-11-25 21:19:35] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: two_role_b, 模式: 三角色
+[2025-11-25 21:19:37] {role.py:346} INFO - [Referee] response: yes
+yes
+yes
+[2025-11-25 21:19:42] {app.py:270} INFO - 优化完成
+[2025-11-25 21:20:28] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: three_role, 模式: 三角色
+[2025-11-25 21:20:30] {role.py:346} INFO - [Referee] response: yes yes yes
+[2025-11-25 21:20:30] {role.py:547} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:20:30] {role.py:551} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:20:33] {role.py:177} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:20:36] {role.py:177} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ int fibonacci(int n) {
+    // Base case: if n is 0 or 1, return n
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: return sum of the two preceding Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:20:38] {role.py:177} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "term"} 
+ ====================
+[2025-11-25 21:20:38] {app.py:270} INFO - 优化完成
+[2025-11-25 21:25:12] {app.py:259} INFO - 开始优化，类型: all, workflow_mode: three_role, 模式: 二角色
+[2025-11-25 21:25:14] {role.py:346} INFO - [Referee] response: yes yes yes
+[2025-11-25 21:25:14] {role.py:547} INFO - [RoleModel] directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:25:14] {role.py:551} INFO - [RoleModel] sorted directions: [<DType.SIMPLIFY: 'SIMPLIFY'>, <DType.ADD_COMMENT: 'ADD_COMMENT'>, <DType.RENAME_VAR: 'RENAME_VAR'>]
+[2025-11-25 21:25:17] {role.py:177} INFO - [Advisor] ========== response for DType.SIMPLIFY ========== 
+ int fibonacci(int n) {
+    if (n < 2) {
+        return n;
+    }
+    
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:25:20] {role.py:177} INFO - [Advisor] ========== response for DType.ADD_COMMENT ========== 
+ int fibonacci(int n) {
+    // Base case: if n is 0 or 1, return n
+    if (n < 2) {
+        return n;
+    }
+    
+    // Recursive case: return sum of the two preceding Fibonacci numbers
+    return fibonacci(n - 1) + fibonacci(n - 2);
+} 
+ ====================
+[2025-11-25 21:25:24] {role.py:177} INFO - [Advisor] ========== response for DType.RENAME_VAR ========== 
+ {"n": "term"} 
+ ====================
+[2025-11-25 21:25:24] {app.py:270} INFO - 优化完成

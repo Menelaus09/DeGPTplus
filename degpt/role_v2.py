@@ -320,177 +320,6 @@ def dual_role_optimize(decompile_code: str) -> Dict:
     return model.work()
 
 
-class AnalyzerA:
-    """
-    方案 A 分析器：同时判断三类优化是否需要，并给出简要建议，输出严格 JSON 为主。
-    """
-
-    def __init__(self):
-        self.llm = QueryChatGPT()
-        self.llm.insert_system_prompt(
-            'You are an expert C code analyzer. Decide whether to simplify, comment, and rename variables, '
-            'and provide short suggestions for each. Respond in JSON only.'
-        )
-
-    def analyze(self, code: str) -> Tuple[str, Dict]:
-        prompt = get_prompt('analyzer_a')
-        if not prompt:
-            prompt_content = (
-                "Analyze the following C code and decide whether to perform three kinds of optimizations: "
-                "simplification, adding comments, and variable renaming.\n"
-                "Return ONLY a JSON object with the following fields:\n"
-                "{\n"
-                "  \"should_simplify\": bool,\n"
-                "  \"should_comment\": bool,\n"
-                "  \"should_rename\": bool,\n"
-                "  \"simplify_suggestion\": string,\n"
-                "  \"comment_suggestion\": string,\n"
-                "  \"rename_suggestion\": string\n"
-                "}\n\n"
-                "{code}"
-            )
-        else:
-            prompt_content = prompt['content']
-
-        response = self.llm.query(prompt_content.format(code=code))
-        decisions = self._parse_decisions(response)
-        return response, decisions
-
-    def _parse_decisions(self, response: str) -> Dict:
-        # 优先解析 JSON
-        data = {}
-        try:
-            try:
-                data = json.loads(response.strip())
-            except Exception:
-                m = re.search(r'\{.*\}', response, re.DOTALL)
-                if m:
-                    data = json.loads(m.group())
-        except Exception as e:
-            logger.debug(f"[AnalyzerA] JSON parse failed, fallback to keyword parsing: {e}")
-            data = {}
-
-        decisions = {
-            'should_simplify': bool(data.get('should_simplify')) if isinstance(data, dict) else False,
-            'should_comment': bool(data.get('should_comment')) if isinstance(data, dict) else False,
-            'should_rename': bool(data.get('should_rename')) if isinstance(data, dict) else False,
-            'simplify_suggestion': '',
-            'comment_suggestion': '',
-            'rename_suggestion': '',
-        }
-
-        if isinstance(data, dict):
-            decisions['simplify_suggestion'] = str(data.get('simplify_suggestion', ''))
-            decisions['comment_suggestion'] = str(data.get('comment_suggestion', ''))
-            decisions['rename_suggestion'] = str(data.get('rename_suggestion', ''))
-
-        # 如果 JSON 里没有布尔信息，则用关键词兜底
-        if not any([decisions['should_simplify'], decisions['should_comment'], decisions['should_rename']]):
-            lower = response.lower()
-            if 'simplify' in lower or 'redundant' in lower:
-                decisions['should_simplify'] = True
-            if 'comment' in lower or 'explain' in lower:
-                decisions['should_comment'] = True
-            if 'rename' in lower or 'better name' in lower or 'variable name' in lower:
-                decisions['should_rename'] = True
-
-        # 如果依然都为 False，默认全部开启，避免遗漏
-        if not any([decisions['should_simplify'], decisions['should_comment'], decisions['should_rename']]):
-            decisions['should_simplify'] = True
-            decisions['should_comment'] = True
-            decisions['should_rename'] = True
-
-        return decisions
-
-
-class OperatorA:
-    """
-    方案 A 执行器：复用 Advisor + Operator，按决策顺序执行多步优化，并在每步通过 MSSC 校验。
-    """
-
-    def __init__(self):
-        self.advisor = Advisor()
-        self.operator = Operator()
-
-    def apply(self, code: str, decisions: Dict,
-              mssc_stats: Optional[Dict[str, int]] = None) -> Tuple[str, List[str]]:
-        current = code
-        steps: List[str] = []
-
-        # 执行顺序：simplify -> comment -> rename
-        if decisions.get('should_simplify'):
-            advised, resp = self.advisor._simplify(current)
-            candidate = self.operator.operate(current, advised, DType.SIMPLIFY, mssc_stats=mssc_stats)
-            if candidate != current:
-                steps.append("simplify: applied")
-                current = candidate
-            else:
-                steps.append("simplify: skipped or rejected by MSSC")
-
-        if decisions.get('should_comment'):
-            advised, resp = self.advisor._add_comment(current)
-            candidate = self.operator.operate(current, advised, DType.ADD_COMMENT, mssc_stats=mssc_stats)
-            if candidate != current:
-                steps.append("comment: applied")
-                current = candidate
-            else:
-                steps.append("comment: skipped or rejected by MSSC")
-
-        if decisions.get('should_rename'):
-            advised, resp = self.advisor._rename_var(current)
-            candidate = self.operator.operate(current, advised, DType.RENAME_VAR, mssc_stats=mssc_stats)
-            if candidate != current:
-                steps.append("rename: applied")
-                current = candidate
-            else:
-                steps.append("rename: skipped or rejected by MSSC")
-
-        return current, steps
-
-
-class TwoRoleModeA:
-    """
-    二角色方案 A：AnalyzerA + OperatorA
-    """
-
-    def __init__(self, *, decompile_code: Optional[str] = None, src_code: Optional[str] = None,
-                 mssc_stats: Optional[Dict[str, int]] = None):
-        self.code = decompile_code
-        self.src_code = src_code
-        self.analyzer = AnalyzerA()
-        self.operator = OperatorA()
-        self.mssc_stats: Optional[Dict[str, int]] = mssc_stats
-
-    def work(self) -> Dict:
-        result: Dict = {
-            'source_code': self.src_code,
-            'decompiler_output': self.code,
-            'workflow': 'TWO_ROLE_A',
-        }
-        if not self.code:
-            result['workflow'] = 'ERROR'
-            result['error'] = 'No code provided'
-            return result
-
-        try:
-            analysis_text, decisions = self.analyzer.analyze(self.code)
-            result['analysis'] = analysis_text
-            result['decisions'] = decisions
-
-            optimized_code, steps = self.operator.apply(self.code, decisions, mssc_stats=self.mssc_stats)
-            result['optimized_code'] = optimized_code
-            result['steps'] = steps
-            result['output'] = optimized_code
-        except Exception as e:
-            logger.error(f'[TwoRoleModeA] Error: {e}')
-            logger.error(traceback.format_exc())
-            result['workflow'] = 'ERROR'
-            result['error'] = str(e)
-            result['output'] = self.code
-
-        return result
-
-
 class Transformer:
     """
     方案 B 中的 Transformer：根据 Referee 的 directions 一次性完成必要的转化。
@@ -607,7 +436,8 @@ class TwoRoleModeB:
         try:
             analysis_text, directions = self.referee.get_direction(self.code)
             result['analysis'] = analysis_text
-            result['directions'] = [d.value if isinstance(d, DType) else str(d) for d in directions]
+            direction_values = [d.value if isinstance(d, DType) else str(d) for d in directions]
+            result['directions'] = direction_values
 
             candidate_code, raw_resp = self.transformer.transform(self.code, directions)
             result['llm_raw_response'] = raw_resp
@@ -631,6 +461,73 @@ class TwoRoleModeB:
             if directions and Transformer._normalized(candidate_code) == Transformer._normalized(self.code):
                 result['transformer_status'] = 'TRANSFORMER_NO_CHANGE'
 
+            # 构建 optimizations 字典，根据 directions 创建条目
+            optimizations: Dict[str, Dict] = {}
+            direction_map = {
+                'SIMPLIFY': 'SIMPLIFY',
+                'ADD_COMMENT': 'ADD_COMMENT',
+                'RENAME_VAR': 'RENAME_VAR',
+            }
+            
+            # 尝试从响应中提取重命名变量的映射（如果存在）
+            rename_map = None
+            if 'RENAME_VAR' in [d.value if isinstance(d, DType) else str(d) for d in directions]:
+                # 尝试从响应中提取 JSON 格式的变量映射
+                # 查找 JSON 对象模式
+                json_pattern = r'\{[^{}]*"[^"]*"\s*:\s*"[^"]*"[^{}]*\}'
+                json_matches = re.findall(json_pattern, raw_resp)
+                for match in json_matches:
+                    try:
+                        parsed = json.loads(match)
+                        if isinstance(parsed, dict) and len(parsed) > 0:
+                            rename_map = json.dumps(parsed, ensure_ascii=False)
+                            break
+                    except:
+                        continue
+            
+            # 根据 directions 创建优化条目
+            for direction in directions:
+                direction_key = direction.value if isinstance(direction, DType) else str(direction)
+                if direction_key in direction_map:
+                    opt_key = direction_map[direction_key]
+                    status = 'SUCC' if accepted is not False else 'FAIL|OPERATOR'
+                    
+                    # 对于重命名变量，使用提取的变量映射，不设置 output（只显示变量映射）
+                    if opt_key == 'RENAME_VAR':
+                        if rename_map:
+                            optimizations[opt_key] = {
+                                'input': self.code,
+                                'output': '',  # 重命名变量不显示代码，只显示变量映射
+                                'status': status,
+                                'advisor_response': rename_map,
+                            }
+                        else:
+                            # 如果没有找到变量映射，仍然不显示代码
+                            optimizations[opt_key] = {
+                                'input': self.code,
+                                'output': '',
+                                'status': status,
+                                'advisor_response': raw_resp,
+                            }
+                    else:
+                        # 对于其他优化类型，显示最终代码
+                        optimizations[opt_key] = {
+                            'input': self.code,
+                            'output': candidate_code,
+                            'status': status,
+                            'advisor_response': raw_resp,
+                        }
+            
+            # 如果没有 directions，但代码有变化，创建一个综合条目
+            if not optimizations and candidate_code != self.code:
+                optimizations['ALL'] = {
+                    'input': self.code,
+                    'output': candidate_code,
+                    'status': 'SUCC' if accepted is not False else 'FAIL|OPERATOR',
+                    'advisor_response': raw_resp,
+                }
+            
+            result['optimizations'] = optimizations
             result['output'] = result['optimized_code']
         except Exception as e:
             logger.error(f'[TwoRoleModeB] Error: {e}')
@@ -689,6 +586,49 @@ def one_shot_optimize(code: str, mssc_stats: Optional[Dict[str, int]] = None) ->
     else:
         result['optimized_code'] = code
         result['mssc_status'] = 'REJECTED'
+
+    # 构建 optimizations 字典，根据提示内容创建三个优化条目
+    # One-shot 模式一次性完成所有优化，所以每个条目的 input 都是原始代码，output 都是最终代码
+    optimizations: Dict[str, Dict] = {}
+    status = 'SUCC' if accepted else 'FAIL|OPERATOR'
+    final_code = candidate_code if accepted else code
+    
+    # 尝试从响应中提取重命名变量的映射（如果存在）
+    rename_map = None
+    # 查找 JSON 对象模式
+    json_pattern = r'\{[^{}]*"[^"]*"\s*:\s*"[^"]*"[^{}]*\}'
+    json_matches = re.findall(json_pattern, response)
+    for match in json_matches:
+        try:
+            parsed = json.loads(match)
+            if isinstance(parsed, dict) and len(parsed) > 0:
+                rename_map = json.dumps(parsed, ensure_ascii=False)
+                break
+        except:
+            continue
+    
+    # 根据提示内容，one-shot 模式会执行简化、注释、重命名三种优化
+    optimizations['SIMPLIFY'] = {
+        'input': code,
+        'output': final_code,
+        'status': status,
+        'advisor_response': response,
+    }
+    optimizations['ADD_COMMENT'] = {
+        'input': code,
+        'output': final_code,
+        'status': status,
+        'advisor_response': response,
+    }
+    # 对于重命名变量，不设置 output（只显示变量映射），如果找到变量映射则使用，否则使用完整响应但不显示代码
+    optimizations['RENAME_VAR'] = {
+        'input': code,
+        'output': '',  # 重命名变量不显示代码，只显示变量映射
+        'status': status,
+        'advisor_response': rename_map if rename_map else response,
+    }
+    
+    result['optimizations'] = optimizations
 
     return result
 

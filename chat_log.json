@@ -44,5 +44,272 @@
             "role": "assistant",
             "content": "yes  \nyes  \nyes"
         }
+    ],
+    [],
+    [
+        {
+            "role": "user",
+            "content": "Improve the following C code in one shot:\n- Simplify redundant variables and code\n- Add helpful comments explaining logic\n- Rename variables to meaningful names\nKeep semantics and control flow unchanged. Return ONLY the final C code (you may use a ```c code block).\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\nint fibonacci(int n) {\n    // Base case: Fibonacci of 0 is 0, and Fibonacci of 1 is 1\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursively compute Fibonacci(n-1) and Fibonacci(n-2)\n    int fib_n_minus_1 = fibonacci(n - 1);\n    int fib_n_minus_2 = fibonacci(n - 2);\n    \n    // Sum the two previous Fibonacci numbers to get the current one\n    int result = fib_n_minus_1 + fib_n_minus_2;\n    \n    return result;\n}\n```"
+        }
+    ],
+    [],
+    [
+        {
+            "role": "user",
+            "content": "Improve the following C code in one shot:\n- Simplify redundant variables and code\n- Add helpful comments explaining logic\n- Rename variables to meaningful names\nKeep semantics and control flow unchanged. Return ONLY the final C code (you may use a ```c code block).\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\nint fibonacci(int n) {\n    // Base case: Fibonacci of 0 is 0, and Fibonacci of 1 is 1\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursively compute Fibonacci(n-1) and Fibonacci(n-2)\n    int fib_n_minus_1 = fibonacci(n - 1);\n    int fib_n_minus_2 = fibonacci(n - 2);\n    \n    // Sum the two previous Fibonacci values to get the current one\n    int result = fib_n_minus_1 + fib_n_minus_2;\n    \n    return result;\n}\n```"
+        }
+    ],
+    [],
+    [
+        {
+            "role": "user",
+            "content": "Improve the following C code in one shot:\n- Simplify redundant variables and code\n- Add helpful comments explaining logic\n- Rename variables to meaningful names\nKeep semantics and control flow unchanged. Return ONLY the final C code (you may use a ```c code block).\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\nint fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n directly\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursively compute fibonacci(n-1) and fibonacci(n-2)\n    int prev_fib = fibonacci(n - 1);\n    int prev_prev_fib = fibonacci(n - 2);\n    \n    // Sum the two previous Fibonacci values to get current value\n    int current_fib = prev_fib + prev_prev_fib;\n    \n    return current_fib;\n}\n```"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me rename the variables for the code snippet in the following C code. Output the old name and its new name in a *single* JSON dictionary. Do not use any markdown formatting. For example, use {\"old_name\": \"new_name\"} to represent replace the variable name \"old_name\" with \"new_name\". No explanation. \\n int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"n\": \"term\"}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me add code comments for the code snippet in the following C code. No explanation.\nint fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Simplify the following C function by removing redundant variables and unnecessary code. No explanation. Don't change the variable types and function semantics. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes\nyes\nyes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes yes yes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "You are given C code and high-level optimization directions.\nDirections: SIMPLIFY, ADD_COMMENT, RENAME_VAR\nDirections may include: SIMPLIFY, ADD_COMMENT, RENAME_VAR.\nApply only the necessary changes implied by the directions, keep control flow and semantics intact,\nand return ONLY the final C code (you may use a ```c code block). Code:\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\n// Computes the nth Fibonacci number using recursion.\nint fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n directly.\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: fib(n) = fib(n-1) + fib(n-2)\n    int prev1 = fibonacci(n - 1);\n    int prev2 = fibonacci(n - 2);\n    int result = prev1 + prev2;\n    \n    return result;\n}\n```"
+        }
+    ],
+    [],
+    [],
+    [],
+    [
+        {
+            "role": "user",
+            "content": "Improve the following C code in one shot:\n- Simplify redundant variables and code\n- Add helpful comments explaining logic\n- Rename variables to meaningful names\nKeep semantics and control flow unchanged. Return ONLY the final C code (you may use a ```c code block).\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\nint fibonacci(int n) {\n    // Base case: Fibonacci of 0 is 0, and Fibonacci of 1 is 1\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursively compute Fibonacci(n-1) and Fibonacci(n-2)\n    int fib_n_minus_1 = fibonacci(n - 1);\n    int fib_n_minus_2 = fibonacci(n - 2);\n    \n    // Sum the two previous Fibonacci numbers to get the current one\n    int result = fib_n_minus_1 + fib_n_minus_2;\n    \n    return result;\n}\n```"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me rename the variables for the code snippet in the following C code. Output the old name and its new name in a *single* JSON dictionary. Do not use any markdown formatting. For example, use {\"old_name\": \"new_name\"} to represent replace the variable name \"old_name\" with \"new_name\". No explanation. \\n int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"n\": \"term\"}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me add code comments for the code snippet in the following C code. No explanation.\nint fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Simplify the following C function by removing redundant variables and unnecessary code. No explanation. Don't change the variable types and function semantics. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes\nyes\nyes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes\nyes\nyes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "You are given C code and high-level optimization directions.\nDirections: SIMPLIFY, ADD_COMMENT, RENAME_VAR\nDirections may include: SIMPLIFY, ADD_COMMENT, RENAME_VAR.\nApply only the necessary changes implied by the directions, keep control flow and semantics intact,\nand return ONLY the final C code (you may use a ```c code block). Code:\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\n// Computes the nth Fibonacci number using recursion.\nint fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n directly.\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: fib(n) = fib(n-1) + fib(n-2)\n    int prev1 = fibonacci(n - 1);\n    int prev2 = fibonacci(n - 2);\n    int result = prev1 + prev2;\n    \n    return result;\n}\n```"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me rename the variables for the code snippet in the following C code. Output the old name and its new name in a *single* JSON dictionary. Do not use any markdown formatting. For example, use {\"old_name\": \"new_name\"} to represent replace the variable name \"old_name\" with \"new_name\". No explanation. \\n int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"n\": \"term\"}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me add code comments for the code snippet in the following C code. No explanation.\nint fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Simplify the following C function by removing redundant variables and unnecessary code. No explanation. Don't change the variable types and function semantics. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes yes yes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes\nyes\nyes"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "You are given C code and high-level optimization directions.\nDirections: SIMPLIFY, ADD_COMMENT, RENAME_VAR\nDirections may include: SIMPLIFY, ADD_COMMENT, RENAME_VAR.\nApply only the necessary changes implied by the directions, keep control flow and semantics intact,\nand return ONLY the final C code (you may use a ```c code block). Code:\n\nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "```c\n// Computes the nth Fibonacci number recursively.\nint fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n directly.\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: fib(n) = fib(n-1) + fib(n-2)\n    int prev1 = fibonacci(n - 1);  // fib(n-1)\n    int prev2 = fibonacci(n - 2);  // fib(n-2)\n    int result = prev1 + prev2;    // Sum of two previous Fibonacci numbers\n    \n    return result;\n}\n```"
+        }
+    ],
+    [],
+    [
+        {
+            "role": "user",
+            "content": "Help me rename the variables for the code snippet in the following C code. Output the old name and its new name in a *single* JSON dictionary. Do not use any markdown formatting. For example, use {\"old_name\": \"new_name\"} to represent replace the variable name \"old_name\" with \"new_name\". No explanation. \\n int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"n\": \"term\"}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Help me add code comments for the code snippet in the following C code. No explanation.\nint fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    // Base case: if n is 0 or 1, return n\n    if (n < 2) {\n        return n;\n    }\n    \n    // Recursive case: return sum of the two preceding Fibonacci numbers\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Simplify the following C function by removing redundant variables and unnecessary code. No explanation. Don't change the variable types and function semantics. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "int fibonacci(int n) {\n    if (n < 2) {\n        return n;\n    }\n    \n    return fibonacci(n - 1) + fibonacci(n - 2);\n}"
+        }
+    ],
+    [
+        {
+            "role": "user",
+            "content": "Do you think the following code needs structure simplification, comment appending, and variable renaming? Answer three yes or no in order. No explanation. \nint fibonacci(int n) {\n    int uVar1;\n    int iVar2;\n    int iVar3;\n    \n    if (n < 2) {\n        return n;\n    }\n    \n    iVar2 = fibonacci(n - 1);\n    iVar3 = fibonacci(n - 2);\n    uVar1 = iVar2 + iVar3;\n    \n    return uVar1;\n}"
+        },
+        {
+            "role": "assistant",
+            "content": "yes yes yes"
+        }
     ]
 ]

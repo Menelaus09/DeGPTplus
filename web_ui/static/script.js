@@ -34,7 +34,7 @@ async function optimizeCode() {
     }
     
     const optType = document.querySelector('input[name="optType"]:checked').value;
-    const useDualRole = document.getElementById('useDualRole').checked;
+    const useDualRole = false;  // 已移除旧版二角色复选框，保留此变量用于向后兼容
     const workflowModeInput = document.querySelector('input[name="workflowMode"]:checked');
     const workflowMode = workflowModeInput ? workflowModeInput.value : null;
     const optimizeBtn = document.getElementById('optimizeBtn');
@@ -90,10 +90,6 @@ async function optimizeCode() {
         
         if (data.status === 'success') {
             showResult(data);
-            // 如果是二角色模式，显示分析信息
-            if (data.analysis) {
-                showAnalysis(data);
-            }
         } else {
             showError(data.message || '优化失败', data.error_type);
         }
@@ -152,24 +148,121 @@ function showResult(data) {
     hljs.highlightElement(optimizedCode);
     
     // 显示优化详情
+    let detailsHTML = '';
+    
+    // 优先显示 optimizations（优化步骤详情）
     if (data.optimizations && Object.keys(data.optimizations).length > 0) {
-        let detailsHTML = '';
+        // 按照固定顺序显示：SIMPLIFY, ADD_COMMENT, RENAME_VAR
+        const order = ['SIMPLIFY', 'ADD_COMMENT', 'RENAME_VAR'];
+        const displayed = new Set();
         
-        for (const [optName, optData] of Object.entries(data.optimizations)) {
-            const statusClass = optData.status.startsWith('SUCC') ? 'succ' : 'fail';
-            detailsHTML += `
-                <div class="optimization-item">
-                    <h4>
-                        ${getOptName(optName)}
-                        <span class="status-badge ${statusClass}">${optData.status}</span>
-                    </h4>
-                    ${optData.advisor_response ? `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>` : ''}
-                </div>
-            `;
+        for (const optName of order) {
+            if (data.optimizations[optName]) {
+                const optData = data.optimizations[optName];
+                const statusClass = optData.status.startsWith('SUCC') ? 'succ' : 'fail';
+                
+                // 对于重命名变量，只显示变量映射JSON，不显示代码
+                let contentHTML = '';
+                if (optName === 'RENAME_VAR') {
+                    // 重命名变量：只显示变量映射JSON，不显示代码
+                    if (optData.advisor_response) {
+                        try {
+                            // 尝试解析 JSON
+                            const renameMap = JSON.parse(optData.advisor_response);
+                            if (typeof renameMap === 'object' && renameMap !== null) {
+                                // 只显示变量映射JSON，不显示代码
+                                contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;">${escapeHtml(JSON.stringify(renameMap, null, 2))}</pre>`;
+                            } else {
+                                contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                            }
+                        } catch (e) {
+                            // 不是 JSON，不显示代码块内容
+                            if (optData.advisor_response.includes('```')) {
+                                contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                            } else {
+                                // 尝试直接显示（可能是纯文本的变量映射说明）
+                                contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>`;
+                            }
+                        }
+                    } else {
+                        contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                    }
+                } else if (optData.output && optData.output.trim()) {
+                    // 对于其他优化类型（简化代码、添加注释），显示优化后的代码
+                    contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;"><code class="language-c">${escapeHtml(optData.output)}</code></pre>`;
+                } else if (optData.advisor_response) {
+                    // 如果没有 output，显示建议响应
+                    contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>`;
+                }
+                
+                detailsHTML += `
+                    <div class="optimization-item">
+                        <h4>
+                            ${getOptName(optName)}
+                            <span class="status-badge ${statusClass}">${optData.status}</span>
+                        </h4>
+                        ${contentHTML}
+                    </div>
+                `;
+                displayed.add(optName);
+            }
         }
         
+        // 显示其他未在固定顺序中的优化项
+        for (const [optName, optData] of Object.entries(data.optimizations)) {
+            if (!displayed.has(optName)) {
+                const statusClass = optData.status.startsWith('SUCC') ? 'succ' : 'fail';
+                let contentHTML = '';
+                if (optData.output) {
+                    contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;"><code class="language-c">${escapeHtml(optData.output)}</code></pre>`;
+                } else if (optData.advisor_response) {
+                    contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>`;
+                }
+                detailsHTML += `
+                    <div class="optimization-item">
+                        <h4>
+                            ${getOptName(optName)}
+                            <span class="status-badge ${statusClass}">${optData.status}</span>
+                        </h4>
+                        ${contentHTML}
+                    </div>
+                `;
+            }
+        }
+    }
+    
+    // 如果没有 optimizations，但有 analysis，显示分析信息（兼容旧版）
+    if (!detailsHTML && (data.analysis || data.optimizations_needed)) {
+        if (data.analysis) {
+            detailsHTML += `<div class="optimization-item">
+                <h4>代码分析</h4>
+                <p style="color: var(--text-secondary); margin: 10px 0;">${escapeHtml(data.analysis)}</p>
+            </div>`;
+        }
+        if (data.optimizations_needed && data.optimizations_needed.length > 0) {
+            const optNames = {
+                'simplify': '简化代码',
+                'comment': '添加注释',
+                'rename': '重命名变量'
+            };
+            const optList = data.optimizations_needed.map(opt => optNames[opt] || opt).join('、');
+            detailsHTML += `<div class="optimization-item">
+                <h4>建议的优化</h4>
+                <p style="color: var(--text-secondary); margin: 10px 0;">${optList}</p>
+            </div>`;
+        }
+    }
+    
+    if (detailsHTML) {
         detailsContent.innerHTML = detailsHTML;
         optimizationDetails.style.display = 'block';
+        
+        // 高亮代码块
+        if (typeof hljs !== 'undefined') {
+            detailsContent.querySelectorAll('code.language-c').forEach(block => {
+                hljs.highlightElement(block);
+            });
+        }
     } else {
         optimizationDetails.style.display = 'none';
     }
@@ -220,7 +313,7 @@ function getWorkflowName(workflow) {
     const map = {
         'THREE_ROLE': '三角色',
         'DUAL_ROLE': '旧版二角色',
-        'TWO_ROLE_A': '二角色 A（AnalyzerA + OperatorA）',
+        'TWO_ROLE_A': '二角色 A（Analyzer + Optimizer）',
         'TWO_ROLE_B': '二角色 B（Referee + Transformer）',
         'ONE_SHOT': 'One-shot',
         'SINGLE_OPT': '单步优化'

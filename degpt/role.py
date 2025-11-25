@@ -36,21 +36,44 @@ PROMPT_PATH = os.path.join(DIR, 'prompt.json')  # file path storing the prompts
 def run_timer(func, *, args = [], time = 1, info = 'run_timer failed'):
     """
     timer - limit the running time of the func
+    跨平台的超时函数实现。
+    在 Windows 上使用 ThreadPoolExecutor，在 Unix 上优先使用 signal（如果可用）。
     """
-
-    def timeout_callback(signum, frame):
-        raise Exception(f'timeout')
-
-    signal.signal(signal.SIGALRM, timeout_callback)
-    signal.alarm(time)
-    try:
-        rtn = func(*args)
-        signal.alarm(0)
-        return rtn
-    except Exception as e:
-        print(e)
-        print(info)
-        return None
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
+    
+    # 检测是否支持 SIGALRM（Unix/Linux/macOS）
+    has_sigalrm = hasattr(signal, 'SIGALRM')
+    
+    if has_sigalrm:
+        # Unix/Linux/macOS: 使用 signal.SIGALRM
+        def timeout_callback(signum, frame):
+            raise Exception(f'timeout')
+        signal.signal(signal.SIGALRM, timeout_callback)
+        signal.alarm(time)
+        try:
+            rtn = func(*args)
+            signal.alarm(0)
+            return rtn
+        except Exception as e:
+            signal.alarm(0)
+            print(e)
+            print(info)
+            return None
+    else:
+        # Windows: 使用 ThreadPoolExecutor 实现超时
+        try:
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(func, *args)
+                rtn = future.result(timeout=time)
+                return rtn
+        except FuturesTimeoutError:
+            print(f'timeout')
+            print(info)
+            return None
+        except Exception as e:
+            print(e)
+            print(info)
+            return None
 
 
 def is_valid_json(data: str) -> bool:
