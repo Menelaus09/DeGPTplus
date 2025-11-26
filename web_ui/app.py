@@ -109,6 +109,8 @@ def run_optimization(code: str, opt_type: str, workflow_mode: str, use_dual_role
                 'workflow': effective_workflow,
                 'analysis': raw.get('analysis', ''),
                 'optimizations_needed': raw.get('optimizations_needed', []),
+                'optimizations': raw.get('optimizations', {}),
+                'mssc_status': raw.get('mssc_status', ''),
             }
             if 'optimization_response' in raw:
                 result['optimization_response'] = raw.get('optimization_response', '')

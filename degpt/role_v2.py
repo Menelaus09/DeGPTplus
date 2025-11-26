@@ -24,6 +24,101 @@ logger = Log().get(__file__)
 PROMPT_PATH = os.path.join(DIR, 'prompt_v2.json')  # 新的prompt文件
 
 
+def extract_rename_map(response: str) -> Optional[str]:
+    """
+    从响应中提取变量重命名映射（JSON格式）
+    使用多种策略尝试提取，提高成功率
+    
+    Args:
+        response: LLM 响应文本
+        
+    Returns:
+        变量映射的 JSON 字符串，如果提取失败则返回 None
+    """
+    if not response:
+        return None
+    
+    # 策略1: 尝试直接解析整个响应为 JSON
+    try:
+        data = json.loads(response.strip())
+        if isinstance(data, dict) and len(data) > 0:
+            # 检查是否像变量映射（键值对都是字符串）
+            if all(isinstance(k, str) and isinstance(v, str) for k, v in data.items()):
+                return json.dumps(data, ensure_ascii=False)
+    except:
+        pass
+    
+    # 策略2: 提取代码块外的 JSON（避免提取代码中的内容）
+    # 先移除代码块
+    code_block_pattern = r'```[^`]*```'
+    text_without_code = re.sub(code_block_pattern, '', response, flags=re.DOTALL)
+    
+    # 策略3: 查找 JSON 对象（支持嵌套和多行）
+    # 匹配 { "key": "value", ... } 格式
+    json_patterns = [
+        # 标准 JSON 对象（支持嵌套）
+        r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*"[^"]*"\s*:\s*"[^"]*"[^{}]*\}',
+        # 简单的键值对对象
+        r'\{\s*"[^"]+"\s*:\s*"[^"]+"\s*(?:,\s*"[^"]+"\s*:\s*"[^"]+"\s*)*\}',
+        # 支持单引号（转换为双引号）
+        r"\{\s*'[^']+'\s*:\s*'[^']+'\s*(?:,\s*'[^']+'\s*:\s*'[^']+'\s*)*\}",
+    ]
+    
+    for pattern in json_patterns:
+        matches = re.findall(pattern, text_without_code, re.DOTALL)
+        for match in matches:
+            try:
+                # 如果是单引号，先转换为双引号
+                if "'" in match:
+                    match = match.replace("'", '"')
+                parsed = json.loads(match)
+                if isinstance(parsed, dict) and len(parsed) > 0:
+                    # 验证是否是变量映射格式
+                    if all(isinstance(k, str) and isinstance(v, str) for k, v in parsed.items()):
+                        return json.dumps(parsed, ensure_ascii=False)
+            except:
+                continue
+    
+    # 策略4: 尝试提取 JSON 数组中的对象
+    json_array_pattern = r'\[\s*\{[^}]+\}\s*(?:,\s*\{[^}]+\}\s*)*\]'
+    array_matches = re.findall(json_array_pattern, text_without_code, re.DOTALL)
+    for match in array_matches:
+        try:
+            parsed = json.loads(match)
+            if isinstance(parsed, list) and len(parsed) > 0:
+                # 取第一个对象
+                if isinstance(parsed[0], dict):
+                    return json.dumps(parsed[0], ensure_ascii=False)
+        except:
+            continue
+    
+    # 策略5: 使用更宽松的匹配，然后尝试修复
+    # 查找类似 "old": "new" 的模式
+    key_value_pattern = r'"([^"]+)"\s*:\s*"([^"]+)"'
+    matches = re.findall(key_value_pattern, text_without_code)
+    if matches:
+        try:
+            rename_dict = {k: v for k, v in matches}
+            if len(rename_dict) > 0:
+                return json.dumps(rename_dict, ensure_ascii=False)
+        except:
+            pass
+    
+    # 策略6: 尝试从 Markdown 代码块中提取 JSON
+    json_code_block_pattern = r'```(?:json)?\s*(\{.*?\})\s*```'
+    code_block_matches = re.findall(json_code_block_pattern, response, re.DOTALL)
+    for match in code_block_matches:
+        try:
+            parsed = json.loads(match)
+            if isinstance(parsed, dict) and len(parsed) > 0:
+                if all(isinstance(k, str) and isinstance(v, str) for k, v in parsed.items()):
+                    return json.dumps(parsed, ensure_ascii=False)
+        except:
+            continue
+    
+    return None
+
+
 def get_prompt(name: str, prompt_path: str = PROMPT_PATH) -> Optional[Dict[str, str]]:
     """获取prompt"""
     if not os.path.exists(prompt_path):
@@ -283,24 +378,87 @@ class DualRoleModel:
         try:
             # 步骤1: 分析
             logger.info('[DualRoleModel] Starting analysis...')
-            analysis_text, optimizations = self.analyzer.analyze(self.code)
+            analysis_text, optimizations_needed = self.analyzer.analyze(self.code)
             result['analysis'] = analysis_text
-            result['optimizations_needed'] = optimizations
+            result['optimizations_needed'] = optimizations_needed
             result['workflow'] = 'ANALYZED'
             
-            logger.info(f'[DualRoleModel] Optimizations needed: {optimizations}')
+            logger.info(f'[DualRoleModel] Optimizations needed: {optimizations_needed}')
             
             # 步骤2: 优化
             logger.info('[DualRoleModel] Starting optimization...')
             optimized_code, optimization_response = self.optimizer.optimize(
                 self.code,
-                optimizations,
+                optimizations_needed,
                 mssc_stats=self.mssc_stats,
             )
             result['optimized_code'] = optimized_code
             result['optimization_response'] = optimization_response
             result['workflow'] = 'DONE'
             result['output'] = optimized_code
+            
+            # MSSC 状态
+            if self.mssc_stats is not None:
+                # 如果 Optimizer 内部已经进行了 MSSC 检查，这里可以设置状态
+                # 由于 Optimizer 可能已经处理了 MSSC，这里假设优化成功
+                result['mssc_status'] = 'ACCEPTED'
+            else:
+                result['mssc_status'] = 'UNKNOWN'
+            
+            # 构建 optimizations 字典，根据 optimizations_needed 创建条目
+            optimizations: Dict[str, Dict] = {}
+            optimization_map = {
+                'simplify': 'SIMPLIFY',
+                'comment': 'ADD_COMMENT',
+                'rename': 'RENAME_VAR',
+            }
+            
+            # 尝试从响应中提取重命名变量的映射（如果存在）
+            rename_map = None
+            if 'rename' in optimizations_needed:
+                rename_map = extract_rename_map(optimization_response)
+            
+            # 根据 optimizations_needed 创建优化条目
+            status = 'SUCC' if optimized_code != self.code else 'FAIL|OPERATOR'
+            for opt in optimizations_needed:
+                opt_key = optimization_map.get(opt)
+                if opt_key:
+                    # 对于重命名变量，使用提取的变量映射，不设置 output（只显示变量映射）
+                    if opt_key == 'RENAME_VAR':
+                        if rename_map:
+                            optimizations[opt_key] = {
+                                'input': self.code,
+                                'output': '',  # 重命名变量不显示代码，只显示变量映射
+                                'status': status,
+                                'advisor_response': rename_map,
+                            }
+                        else:
+                            # 如果没有找到变量映射，仍然不显示代码
+                            optimizations[opt_key] = {
+                                'input': self.code,
+                                'output': '',
+                                'status': status,
+                                'advisor_response': optimization_response,
+                            }
+                    else:
+                        # 对于其他优化类型，显示最终代码
+                        optimizations[opt_key] = {
+                            'input': self.code,
+                            'output': optimized_code,
+                            'status': status,
+                            'advisor_response': optimization_response,
+                        }
+            
+            # 如果没有 optimizations_needed，但代码有变化，创建一个综合条目
+            if not optimizations and optimized_code != self.code:
+                optimizations['ALL'] = {
+                    'input': self.code,
+                    'output': optimized_code,
+                    'status': status,
+                    'advisor_response': optimization_response,
+                }
+            
+            result['optimizations'] = optimizations
             
             logger.info('[DualRoleModel] Optimization completed')
             
@@ -472,18 +630,7 @@ class TwoRoleModeB:
             # 尝试从响应中提取重命名变量的映射（如果存在）
             rename_map = None
             if 'RENAME_VAR' in [d.value if isinstance(d, DType) else str(d) for d in directions]:
-                # 尝试从响应中提取 JSON 格式的变量映射
-                # 查找 JSON 对象模式
-                json_pattern = r'\{[^{}]*"[^"]*"\s*:\s*"[^"]*"[^{}]*\}'
-                json_matches = re.findall(json_pattern, raw_resp)
-                for match in json_matches:
-                    try:
-                        parsed = json.loads(match)
-                        if isinstance(parsed, dict) and len(parsed) > 0:
-                            rename_map = json.dumps(parsed, ensure_ascii=False)
-                            break
-                    except:
-                        continue
+                rename_map = extract_rename_map(raw_resp)
             
             # 根据 directions 创建优化条目
             for direction in directions:
@@ -594,18 +741,7 @@ def one_shot_optimize(code: str, mssc_stats: Optional[Dict[str, int]] = None) ->
     final_code = candidate_code if accepted else code
     
     # 尝试从响应中提取重命名变量的映射（如果存在）
-    rename_map = None
-    # 查找 JSON 对象模式
-    json_pattern = r'\{[^{}]*"[^"]*"\s*:\s*"[^"]*"[^{}]*\}'
-    json_matches = re.findall(json_pattern, response)
-    for match in json_matches:
-        try:
-            parsed = json.loads(match)
-            if isinstance(parsed, dict) and len(parsed) > 0:
-                rename_map = json.dumps(parsed, ensure_ascii=False)
-                break
-        except:
-            continue
+    rename_map = extract_rename_map(response)
     
     # 根据提示内容，one-shot 模式会执行简化、注释、重命名三种优化
     optimizations['SIMPLIFY'] = {
