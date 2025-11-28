@@ -33,6 +33,17 @@ async function optimizeCode() {
         return;
     }
     
+    // 检测是否为JSON格式的多函数输入
+    const jsonDetection = detectJsonInput(code);
+    const isBatchMode = jsonDetection.isJson && Object.keys(jsonDetection.functions || {}).length > 1;
+    
+    // 如果是批量模式，使用批量处理函数
+    if (isBatchMode) {
+        await optimizeBatch(jsonDetection.functions);
+        return;
+    }
+    
+    // 单函数处理（原有逻辑）
     const optType = document.querySelector('input[name="optType"]:checked').value;
     const useDualRole = false;  // 已移除旧版二角色复选框，保留此变量用于向后兼容
     const workflowModeInput = document.querySelector('input[name="workflowMode"]:checked');
@@ -117,6 +128,350 @@ async function optimizeCode() {
         btnText.textContent = '开始优化';
         btnLoader.style.display = 'none';
     }
+}
+
+// 批量优化函数
+async function optimizeBatch(functions) {
+    const optimizeBtn = document.getElementById('optimizeBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    const batchProgress = document.getElementById('batchProgress');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    
+    const functionEntries = Object.entries(functions);
+    const totalFunctions = functionEntries.length;
+    
+    // 禁用按钮并显示加载状态
+    optimizeBtn.disabled = true;
+    btnText.textContent = `批量优化中 (0/${totalFunctions})...`;
+    btnLoader.style.display = 'inline-block';
+    
+    // 显示进度条
+    batchProgress.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressText.textContent = `0 / ${totalFunctions}`;
+    
+    // 隐藏错误和结果
+    hideError();
+    hideResult();
+    
+    const optType = document.querySelector('input[name="optType"]:checked').value;
+    const workflowModeInput = document.querySelector('input[name="workflowMode"]:checked');
+    const workflowMode = workflowModeInput ? workflowModeInput.value : null;
+    
+    const results = [];
+    let successCount = 0;
+    let failCount = 0;
+    
+    try {
+        // 逐个处理函数
+        for (let i = 0; i < functionEntries.length; i++) {
+            const [functionAddr, functionCode] = functionEntries[i];
+            const currentIndex = i + 1;
+            
+            // 更新进度
+            const progress = (currentIndex / totalFunctions) * 100;
+            progressBar.style.width = progress + '%';
+            progressText.textContent = `${currentIndex} / ${totalFunctions}`;
+            btnText.textContent = `批量优化中 (${currentIndex}/${totalFunctions})...`;
+            
+            try {
+                const response = await fetch('/api/optimize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: functionCode,
+                        opt_type: optType,
+                        use_dual_role: false,
+                        workflow_mode: workflowMode
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    results.push({
+                        address: functionAddr,
+                        code: functionCode,
+                        result: data,
+                        success: true
+                    });
+                    successCount++;
+                } else {
+                    results.push({
+                        address: functionAddr,
+                        code: functionCode,
+                        error: data.message || '优化失败',
+                        success: false
+                    });
+                    failCount++;
+                }
+            } catch (error) {
+                console.error(`函数 ${functionAddr} 优化失败:`, error);
+                results.push({
+                    address: functionAddr,
+                    code: functionCode,
+                    error: error.message || '网络错误',
+                    success: false
+                });
+                failCount++;
+                // 继续处理下一个函数，不中断批量处理
+            }
+        }
+        
+        // 显示批量结果
+        if (results.length > 0) {
+            showBatchResult(results, successCount, failCount);
+        } else {
+            showError('批量处理失败：所有函数处理都失败了');
+        }
+        
+    } catch (error) {
+        console.error('批量处理异常:', error);
+        showError('批量处理失败: ' + error.message);
+    } finally {
+        // 恢复按钮状态
+        optimizeBtn.disabled = false;
+        btnText.textContent = '开始优化';
+        btnLoader.style.display = 'none';
+        batchProgress.style.display = 'none';
+    }
+}
+
+// 显示批量处理结果
+function showBatchResult(results, successCount, failCount) {
+    const resultSection = document.getElementById('resultSection');
+    const resultTitle = document.getElementById('resultTitle');
+    const optimizationDetails = document.getElementById('optimizationDetails');
+    const detailsContent = document.getElementById('detailsContent');
+    
+    // 设置标题
+    if (resultTitle) {
+        resultTitle.textContent = `批量优化结果（成功: ${successCount}, 失败: ${failCount}）`;
+    }
+    
+    // 创建标签页结构
+    let tabsHTML = '<div style="margin-bottom: 15px; border-bottom: 2px solid var(--border-color);">';
+    let tabsContentHTML = '';
+    
+    results.forEach((result, index) => {
+        const tabId = `tab-${index}`;
+        const contentId = `content-${index}`;
+        const isActive = index === 0 ? 'active' : '';
+        const statusIcon = result.success ? '✅' : '❌';
+        
+        tabsHTML += `<button class="tab-button ${isActive}" onclick="switchBatchTab(${index})" style="padding: 10px 15px; margin-right: 5px; background: ${index === 0 ? 'var(--primary-color)' : 'transparent'}; color: ${index === 0 ? 'white' : 'var(--text-primary)'}; border: none; border-bottom: 2px solid ${index === 0 ? 'var(--primary-color)' : 'transparent'}; cursor: pointer; font-size: 0.9rem;">
+            ${statusIcon} ${result.address}
+        </button>`;
+        
+        if (result.success) {
+            tabsContentHTML += `<div id="${contentId}" class="tab-content" style="display: ${index === 0 ? 'block' : 'none'};">
+                ${renderSingleResult(result.result, result.address)}
+            </div>`;
+        } else {
+            tabsContentHTML += `<div id="${contentId}" class="tab-content" style="display: ${index === 0 ? 'block' : 'none'}; padding: 20px;">
+                <div style="color: var(--error-color);">
+                    <h4>函数 ${result.address} 优化失败</h4>
+                    <p>${escapeHtml(result.error)}</p>
+                    <details style="margin-top: 10px;">
+                        <summary style="cursor: pointer; color: var(--text-secondary);">查看原始代码</summary>
+                        <pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin-top: 10px; overflow-x: auto;"><code class="language-c">${escapeHtml(result.code)}</code></pre>
+                    </details>
+                </div>
+            </div>`;
+        }
+    });
+    
+    tabsHTML += '</div>';
+    
+    // 替换原有的代码比较区域
+    const codeComparison = document.querySelector('.code-comparison');
+    if (codeComparison) {
+        codeComparison.style.display = 'none';
+    }
+    
+    // 创建新的批量结果显示区域
+    let batchResultHTML = tabsHTML + tabsContentHTML;
+    
+    // 如果已经有批量结果容器，更新它；否则创建新的
+    let batchResultContainer = document.getElementById('batchResultContainer');
+    if (!batchResultContainer) {
+        batchResultContainer = document.createElement('div');
+        batchResultContainer.id = 'batchResultContainer';
+        batchResultContainer.style.marginTop = '20px';
+        const codeComparisonParent = document.querySelector('.code-comparison').parentElement;
+        codeComparisonParent.insertBefore(batchResultContainer, codeComparison);
+    }
+    batchResultContainer.innerHTML = batchResultHTML;
+    
+    // 高亮代码（使用setTimeout确保DOM已更新）
+    setTimeout(() => {
+        if (typeof hljs !== 'undefined') {
+            batchResultContainer.querySelectorAll('code.language-c').forEach(block => {
+                hljs.highlightElement(block);
+            });
+        }
+    }, 100);
+    
+    resultSection.style.display = 'block';
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // 保存当前标签页索引
+    window.currentBatchTabIndex = 0;
+    window.batchResults = results;
+}
+
+// 切换批量结果标签页
+function switchBatchTab(index) {
+    // 隐藏所有内容
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // 移除所有按钮的active状态
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--text-primary)';
+        btn.style.borderBottomColor = 'transparent';
+    });
+    
+    // 显示选中的内容
+    const contentId = `content-${index}`;
+    const content = document.getElementById(contentId);
+    if (content) {
+        content.style.display = 'block';
+    }
+    
+    // 激活选中的按钮
+    const buttons = document.querySelectorAll('.tab-button');
+    if (buttons[index]) {
+        buttons[index].style.background = 'var(--primary-color)';
+        buttons[index].style.color = 'white';
+        buttons[index].style.borderBottomColor = 'var(--primary-color)';
+    }
+    
+    window.currentBatchTabIndex = index;
+}
+
+// 渲染单个函数的结果
+function renderSingleResult(data, address) {
+    let html = `<div style="margin-bottom: 20px;">
+        <h4 style="margin-bottom: 15px; color: var(--text-primary);">函数地址: ${escapeHtml(address)}</h4>
+    `;
+    
+    // 代码比较
+    html += `
+        <div class="code-comparison" style="display: block; margin-bottom: 20px;">
+            <div class="code-panel">
+                <div class="panel-header">原始代码</div>
+                <pre><code class="language-c">${escapeHtml(data.original_code || '')}</code></pre>
+            </div>
+            <div class="code-panel">
+                <div class="panel-header">优化后代码</div>
+                <pre><code class="language-c">${escapeHtml(data.optimized_code || '')}</code></pre>
+            </div>
+        </div>
+    `;
+    
+    // 优化详情
+    if (data.optimizations && Object.keys(data.optimizations).length > 0) {
+        html += '<div style="margin-top: 20px;"><h4>优化详情</h4>';
+        const order = ['SIMPLIFY', 'ADD_COMMENT', 'RENAME_VAR'];
+        const displayed = new Set();
+        
+        for (const optName of order) {
+            if (data.optimizations[optName]) {
+                const optData = data.optimizations[optName];
+                const statusClass = optData.status.startsWith('SUCC') ? 'succ' : 'fail';
+                
+                let contentHTML = '';
+                if (optName === 'RENAME_VAR') {
+                    if (optData.advisor_response) {
+                        try {
+                            const renameMap = JSON.parse(optData.advisor_response);
+                            if (typeof renameMap === 'object' && renameMap !== null) {
+                                contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;">${escapeHtml(JSON.stringify(renameMap, null, 2))}</pre>`;
+                            } else {
+                                contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                            }
+                        } catch (e) {
+                            contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                        }
+                    } else {
+                        contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">变量重命名信息不可用</p>`;
+                    }
+                } else if (optData.output && optData.output.trim()) {
+                    contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;"><code class="language-c">${escapeHtml(optData.output)}</code></pre>`;
+                } else if (optData.advisor_response) {
+                    contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>`;
+                }
+                
+                html += `
+                    <div class="optimization-item" style="margin-bottom: 15px;">
+                        <h4>
+                            ${getOptName(optName)}
+                            <span class="status-badge ${statusClass}">${optData.status}</span>
+                        </h4>
+                        ${contentHTML}
+                    </div>
+                `;
+                displayed.add(optName);
+            }
+        }
+        
+        // 显示其他优化项
+        for (const [optName, optData] of Object.entries(data.optimizations)) {
+            if (!displayed.has(optName)) {
+                const statusClass = optData.status.startsWith('SUCC') ? 'succ' : 'fail';
+                let contentHTML = '';
+                if (optData.output) {
+                    contentHTML = `<pre style="background: var(--code-bg); padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; overflow-x: auto;"><code class="language-c">${escapeHtml(optData.output)}</code></pre>`;
+                } else if (optData.advisor_response) {
+                    contentHTML = `<p style="color: var(--text-secondary); margin: 10px 0; font-size: 0.9rem;">${escapeHtml(optData.advisor_response)}</p>`;
+                }
+                html += `
+                    <div class="optimization-item" style="margin-bottom: 15px;">
+                        <h4>
+                            ${getOptName(optName)}
+                            <span class="status-badge ${statusClass}">${optData.status}</span>
+                        </h4>
+                        ${contentHTML}
+                    </div>
+                `;
+            }
+        }
+        html += '</div>';
+    }
+    
+    // 运行统计
+    if (data.mssc || data.elapsed_ms) {
+        html += '<div style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);">';
+        if (data.mssc) {
+            const total = data.mssc.total_checks ?? 0;
+            const rejected = data.mssc.rejected ?? 0;
+            let rateText = '—';
+            if (data.mssc.reject_rate !== null && data.mssc.reject_rate !== undefined) {
+                rateText = (data.mssc.reject_rate * 100).toFixed(1) + '%';
+            }
+            html += `MSSC 检查次数：${total}，拒绝次数：${rejected}，拒绝率：${rateText}`;
+        }
+        if (typeof data.elapsed_ms === 'number') {
+            const seconds = (data.elapsed_ms / 1000).toFixed(1);
+            if (data.mssc) html += ' ｜ ';
+            html += `本次优化耗时：${seconds} 秒`;
+        }
+        html += '</div>';
+    }
+    
+    html += '</div>';
+    return html;
 }
 
 // 显示结果
@@ -293,6 +648,16 @@ function showResult(data) {
         }
     }
     
+    // 如果是批量结果，隐藏原有的代码比较区域
+    const batchResultContainer = document.getElementById('batchResultContainer');
+    if (batchResultContainer) {
+        batchResultContainer.style.display = 'none';
+    }
+    const codeComparison = document.querySelector('.code-comparison');
+    if (codeComparison) {
+        codeComparison.style.display = 'flex';
+    }
+    
     resultSection.style.display = 'block';
     resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -395,6 +760,7 @@ function clearCode() {
     document.getElementById('codeInput').value = '';
     hideResult();
     hideError();
+    updateBatchModeIndicator();
 }
 
 // 加载示例代码
@@ -418,6 +784,7 @@ function loadExample() {
     document.getElementById('codeInput').value = exampleCode;
     hideResult();
     hideError();
+    updateBatchModeIndicator();
 }
 
 // 复制结果
@@ -444,6 +811,49 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// 检测输入是否为JSON格式的多函数输入
+function detectJsonInput(input) {
+    try {
+        const parsed = JSON.parse(input.trim());
+        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+            // 检查是否像函数字典（键是地址，值是代码字符串）
+            const values = Object.values(parsed);
+            if (values.length > 0 && typeof values[0] === 'string') {
+                return { isJson: true, functions: parsed };
+            }
+        }
+    } catch (e) {
+        // 不是JSON
+    }
+    return { isJson: false, functions: null };
+}
+
+// 更新批量模式指示器
+function updateBatchModeIndicator() {
+    const codeInput = document.getElementById('codeInput');
+    const batchIndicator = document.getElementById('batchModeIndicator');
+    const functionCount = document.getElementById('functionCount');
+    
+    const code = codeInput.value.trim();
+    if (!code) {
+        batchIndicator.style.display = 'none';
+        return;
+    }
+    
+    const jsonDetection = detectJsonInput(code);
+    if (jsonDetection.isJson && jsonDetection.functions) {
+        const count = Object.keys(jsonDetection.functions).length;
+        if (count > 1) {
+            functionCount.textContent = count;
+            batchIndicator.style.display = 'block';
+        } else {
+            batchIndicator.style.display = 'none';
+        }
+    } else {
+        batchIndicator.style.display = 'none';
+    }
+}
+
 // 页面加载时检查配置
 document.addEventListener('DOMContentLoaded', function() {
     checkConfig();
@@ -467,5 +877,13 @@ document.addEventListener('DOMContentLoaded', function() {
             optimizeCode();
         }
     });
+    
+    // 实时检测JSON格式输入
+    codeInput.addEventListener('input', function() {
+        updateBatchModeIndicator();
+    });
+    
+    // 初始检测
+    updateBatchModeIndicator();
 });
 

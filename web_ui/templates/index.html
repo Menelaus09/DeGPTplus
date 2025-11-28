@@ -30,9 +30,12 @@
                         <button class="btn btn-secondary" onclick="loadExample()">加载示例</button>
                     </div>
                 </div>
+                <div id="batchModeIndicator" style="display: none; margin-bottom: 10px; padding: 10px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 4px; font-size: 0.9rem; color: var(--text-primary);">
+                    <strong>📦 批量处理模式</strong>：检测到 <span id="functionCount">0</span> 个函数，将批量优化所有函数
+                </div>
                 <textarea 
                     id="codeInput" 
-                    placeholder="请输入反编译的C代码..."
+                    placeholder="请输入反编译的C代码或JSON格式的多函数数据..."
                     spellcheck="false"
                 ></textarea>
             </div>
@@ -107,6 +110,17 @@
                 </div>
 
                 <div id="runStats" class="run-stats" style="display: none; margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+                </div>
+                
+                <!-- 批量处理进度 -->
+                <div id="batchProgress" style="display: none; margin-top: 15px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 4px;">
+                    <div style="margin-bottom: 10px;">
+                        <strong>批量处理进度</strong>
+                        <span id="progressText" style="margin-left: 10px; color: var(--text-secondary);">0 / 0</span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: rgba(0, 0, 0, 0.1); border-radius: 4px; overflow: hidden;">
+                        <div id="progressBar" style="height: 100%; background: var(--primary-color); width: 0%; transition: width 0.3s;"></div>
+                    </div>
                 </div>
             </div>
 
